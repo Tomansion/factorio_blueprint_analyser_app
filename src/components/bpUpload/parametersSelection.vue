@@ -8,7 +8,8 @@
         Inserter capacity bonus <a
           href="https://wiki.factorio.com/Inserter_capacity_bonus_(research)"
           target="_blank"
-        >(?)</a>
+          title="Inserter capacity bonus (research) - Factorio Wiki"
+        >(Wiki)</a>
         <p-selectbutton
           v-model="selectedInserterCapacity"
           :options="inserterCapacityOptions"
