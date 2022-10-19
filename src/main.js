@@ -22,6 +22,10 @@ import Textarea from 'primevue/textarea';
 app.component("p-textarea", Textarea)
 import Panel from 'primevue/panel';
 app.component("p-panel", Panel)
+import FileUpload from 'primevue/fileupload';
+app.component("p-fileupload", FileUpload)
+import SelectButton from 'primevue/selectbutton';
+app.component("p-selectbutton", SelectButton)
 
 
 // Mount the app

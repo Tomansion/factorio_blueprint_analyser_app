@@ -3,22 +3,29 @@
     <!-- Tool bar -->
     <p-toolbar>
       <template #start>
-        <!-- <p-button label="New" icon="pi pi-plus" class="mr-2" />
-        <p-button label="Upload" icon="pi pi-upload" class="p-button-success" /> -->
         <h1>Factorio blueprint analyser</h1>
       </template>
 
       <!-- Github link -->
       <template #end>
         {{version}}
-        <p-button icon="pi pi-github" class="p-button-secondary">
+        <p-button
+          icon="pi pi-github"
+          class="p-button-secondary"
+          @click="openGithub"
+        >
         </p-button>
       </template>
     </p-toolbar>
 
     <!-- Introduction -->
-    <p-panel header="Introduction" class="infoPanel" :toggleable="true" v-model:collapsed="introCollapsed"
-      @toggle="devCollapsed = true">
+    <p-panel
+      header="Introduction"
+      class="infoPanel"
+      :toggleable="true"
+      v-model:collapsed="introCollapsed"
+      @toggle="devCollapsed = true"
+    >
       <p>
         The Factorio blueprint analyser is a tool to help you find the bottleneck in a supplychain. <br>
         <br>
@@ -51,21 +58,29 @@
     </p-panel>
 
     <!-- Development -->
-    <p-panel header="Development" class="infoPanel" :toggleable="true" v-model:collapsed="devCollapsed"
-      @toggle="introCollapsed = true">
+    <p-panel
+      header="Development"
+      class="infoPanel"
+      :toggleable="true"
+      v-model:collapsed="devCollapsed"
+      @toggle="introCollapsed = true"
+    >
       <p>
-        The tool is still in development, so please report any bugs by creating an issue <a
-          href="https://github.com/tomansion/factorio_blueprint_analyser_app/issues">here</a><br>
+        The tool is still in development, so please report any bugs by creating an issue
+        <a href="https://github.com/tomansion/factorio_blueprint_analyser_app/issues">here</a><br>
         <br>
-        This project is part of an internship at the <b>Michigan State University</b> for the <b>Factorio Must Grow
-          project</b>. To know more about the project:
+        This project is part of an internship at the <b>Michigan State University</b> for the <b>Factorio Must Grow project</b>.
+        To know more about the project:
       <ul>
-        <li>Watch the intership final presentation on <a href="https://youtu.be/q2Bx-8wbsvk?t=2162">Youtube</a></li>
-        <li>Watch The Factory Must Grow: Automation in Factorio presentation on <a href="https://www.youtube.com/watch?v=9ie01GLGB5s">Youtube</a></li>
+        <li>Watch the intership final presentation on
+          <a href="https://youtu.be/q2Bx-8wbsvk?t=2162">Youtube</a>
+        </li>
+        <li>Watch The Factory Must Grow: Automation in Factorio presentation on
+          <a href="https://www.youtube.com/watch?v=9ie01GLGB5s">Youtube</a>
+        </li>
         <li>
-          Join the AI in Factorio <a
-            href="https://join.slack.com/t/aiinfactorio/shared_invite/zt-1i93131b5-~qucCV~PYmrj8VP5m4RGFQ">Slack
-            channel</a> <br>
+          Join the AI in Factorio
+          <a href="https://join.slack.com/t/aiinfactorio/shared_invite/zt-1i93131b5-~qucCV~PYmrj8VP5m4RGFQ">Slack channel</a> <br>
         </li>
         <li>Contact <a href="mailto:reidken1@msu.edu">reidken1@msu.edu</a></li>
       </ul>
@@ -81,21 +96,25 @@
 </template>
 
 <script>
-import blueprintUpload from './components/blueprintUpload.vue'
-import { version } from "../package.json";
+import blueprintUpload from './components/bpUpload/blueprintUpload.vue'
+import packageJson from "../package.json";
 
 export default {
   name: 'App',
   components: {
     blueprintUpload
   },
-  created() {
-  },
   data() {
+    const version = packageJson.version;
     return {
       version,
       introCollapsed: true,
       devCollapsed: true,
+    }
+  },
+  methods: {
+    openGithub() {
+      window.open("https://github.com/tomansion/factorio_blueprint_analyser_app/", '_blank').focus();
     }
   }
 }
@@ -133,7 +152,7 @@ export default {
 }
 
 /* Introduction */
-.infoPanel {}
+/* .infoPanel {} */
 
 /* Content */
 #content {
