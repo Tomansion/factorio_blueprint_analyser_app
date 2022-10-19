@@ -1,0 +1,37 @@
+swagger: "2.0"
+info:
+  version: 0.1.0
+  title: Factorio Blueprint Analyser
+  description: Factorio Blueprint Analyser backend api
+  contact:
+    email: tomansion@yahoo.fr
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+paths:
+  /version:
+    get:
+      summary: Ping to check if the backend is running
+      operationId: src.analysis.ping
+      responses:
+        200:
+          description: The server is online
+
+  # Analysis
+  /analysis:
+    post:
+      summary: Start an analysis
+      tags: [Analysis]
+      operationId: src.analysis.start
+      # parameters:
+      #   - name: blueprint
+      #     in: body
+      #     schema:
+      #       type: string
+      responses:
+        200:
+          schema:
+            type: object
+          description: Blueprint analysis
+        400:
+          description: Invalid blueprint

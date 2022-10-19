@@ -5,7 +5,7 @@
     </template>
     <template #content>
       <div id="inserterCapacity">
-        Inserter capacity bonus <a
+        Inserter capacity bonus<a
           href="https://wiki.factorio.com/Inserter_capacity_bonus_(research)"
           target="_blank"
           title="Inserter capacity bonus (research) - Factorio Wiki"
@@ -24,10 +24,10 @@
 <script>
 export default {
   data() {
-    const inserterCapacityNumber = 7
+    const inserterCapacityNumber = 8
     const inserterCapacityOptions = []
     for (let i = 0; i < inserterCapacityNumber; i++)
-      inserterCapacityOptions.push(i + 1)
+      inserterCapacityOptions.push(i)
 
     return {
       inserterCapacityOptions,

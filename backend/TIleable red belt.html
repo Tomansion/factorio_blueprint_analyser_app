@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 1900;
+                 height: 1000;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 1, "image": "https://wiki.factorio.com/images/Assembling_machine_1.png", "label": 1, "shape": "circularImage", "value": 5}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 2, "image": "https://wiki.factorio.com/images/Long-handed_inserter.png", "label": "0.48/s 40%", "shape": "circularImage", "value": 4}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 8, "image": "https://wiki.factorio.com/images/Assembling_machine_1.png", "label": 8, "shape": "circularImage", "value": 5}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 4, "image": "https://wiki.factorio.com/images/Fast_inserter.png", "label": "0.24/s 10%", "shape": "circularImage", "value": 4}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 5, "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": "2.63/s 17%", "shape": "circularImage", "value": 3}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "black", "id": 7, "image": "https://wiki.factorio.com/images/Fast_inserter.png", "label": "2.4/s 100%", "shape": "circularImage", "value": 4}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 10, "image": "https://wiki.factorio.com/images/Underground_belt.png", "label": "2.63/s 17%", "shape": "circularImage", "value": 3}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 9, "image": "https://wiki.factorio.com/images/Fast_inserter.png", "label": "0.24/s 10%", "shape": "circularImage", "value": 4}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 11, "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": "0.24/s 1%", "shape": "circularImage", "value": 3}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 14, "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": "0.24/s 1%", "shape": "circularImage", "value": 3}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 28, "image": "https://wiki.factorio.com/images/Assembling_machine_2.png", "label": 28, "shape": "circularImage", "value": 5}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 30, "image": "https://wiki.factorio.com/images/Underground_belt.png", "label": "2.63/s 17%", "shape": "circularImage", "value": 3}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 32, "image": "https://wiki.factorio.com/images/Assembling_machine_2.png", "label": 32, "shape": "circularImage", "value": 5}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 33, "image": "https://wiki.factorio.com/images/Assembling_machine_2.png", "label": 33, "shape": "circularImage", "value": 5}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 34, "image": "https://wiki.factorio.com/images/Assembling_machine_2.png", "label": 34, "shape": "circularImage", "value": 5}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 29, "image": "https://wiki.factorio.com/images/Fast_inserter.png", "label": "0.75/s 31%", "shape": "circularImage", "value": 4}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 31, "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": "2.63/s 17%", "shape": "circularImage", "value": 3}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 38, "image": "https://wiki.factorio.com/images/Fast_inserter.png", "label": "0.75/s 31%", "shape": "circularImage", "value": 4}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 41, "image": "https://wiki.factorio.com/images/Fast_inserter.png", "label": "0.75/s 31%", "shape": "circularImage", "value": 4}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 42, "image": "https://wiki.factorio.com/images/Fast_inserter.png", "label": "0.38/s 16%", "shape": "circularImage", "value": 4}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 45, "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": "1.89/s 12%", "shape": "circularImage", "value": 3}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 50, "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": "1.13/s 7%", "shape": "circularImage", "value": 3}, {"borderWidth": 10, "brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "lightgrey", "id": 52, "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": "0.38/s 2%", "shape": "circularImage", "value": 3}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "1_recipe", "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": "0.48/s 48%", "shape": "image", "value": 3}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "8_recipe", "image": "https://wiki.factorio.com/images/Fast_transport_belt.png", "label": "0.48/s 96%", "shape": "image", "value": 3}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "28_recipe", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": "0.75/s 100%", "shape": "image", "value": 3}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "32_recipe", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": "0.75/s 100%", "shape": "image", "value": 3}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "33_recipe", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": "0.75/s 100%", "shape": "image", "value": 3}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "34_recipe", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": "0.38/s 51%", "shape": "image", "value": 3}, {"color": "#97c2fc", "id": "11_root", "label": "Input", "shape": "text", "value": 3}, {"color": "#97c2fc", "id": "28_root", "label": "Input", "shape": "text", "value": 3}, {"color": "#97c2fc", "id": "32_root", "label": "Input", "shape": "text", "value": 3}, {"color": "#97c2fc", "id": "33_root", "label": "Input", "shape": "text", "value": 3}, {"color": "#97c2fc", "id": "34_root", "label": "Input", "shape": "text", "value": 3}, {"color": "#97c2fc", "id": "8_leaf", "label": "Output", "shape": "text", "value": 3}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "2_item_0", "image": "https://wiki.factorio.com/images/Transport_belt.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "4_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "5_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "7_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "10_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "9_item_0", "image": "https://wiki.factorio.com/images/Iron_plate.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "11_item_0", "image": "https://wiki.factorio.com/images/Iron_plate.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "14_item_0", "image": "https://wiki.factorio.com/images/Iron_plate.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "30_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "29_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "31_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "38_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "41_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "42_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "45_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "50_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}, {"brokenImage": "https://wiki.factorio.com/images/Warning-icon.png", "color": "#97c2fc", "id": "52_item_0", "image": "https://wiki.factorio.com/images/Iron_gear_wheel.png", "label": " ", "shape": "image", "value": 2}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "lightgrey", "from": 1, "to": 2, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 2, "to": 8, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 4, "to": 1, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 5, "to": 4, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 5, "to": 7, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 7, "to": 8, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 10, "to": 5, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 9, "to": 1, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 11, "to": 14, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 14, "to": 9, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 28, "to": 29, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 30, "to": 10, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 32, "to": 38, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 33, "to": 41, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 34, "to": 42, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 29, "to": 31, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 31, "to": 30, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 38, "to": 45, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 41, "to": 50, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 42, "to": 52, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 45, "to": 31, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 50, "to": 45, "value": 1}, {"arrows": "to", "color": "lightgrey", "from": 52, "to": 50, "value": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "grey", "dashes": true, "from": "1_recipe", "title": "produce", "to": 1}, {"arrowStrikethrough": false, "arrows": "to", "color": "grey", "dashes": true, "from": "8_recipe", "title": "produce", "to": 8}, {"arrowStrikethrough": false, "arrows": "to", "color": "grey", "dashes": true, "from": "28_recipe", "title": "produce", "to": 28}, {"arrowStrikethrough": false, "arrows": "to", "color": "grey", "dashes": true, "from": "32_recipe", "title": "produce", "to": 32}, {"arrowStrikethrough": false, "arrows": "to", "color": "grey", "dashes": true, "from": "33_recipe", "title": "produce", "to": 33}, {"arrowStrikethrough": false, "arrows": "to", "color": "grey", "dashes": true, "from": "34_recipe", "title": "produce", "to": 34}, {"arrowStrikethrough": false, "arrows": "to", "color": "red", "dashes": true, "from": "11_root", "to": 11}, {"arrowStrikethrough": false, "arrows": "to", "color": "red", "dashes": true, "from": "28_root", "to": 28}, {"arrowStrikethrough": false, "arrows": "to", "color": "red", "dashes": true, "from": "32_root", "to": 32}, {"arrowStrikethrough": false, "arrows": "to", "color": "red", "dashes": true, "from": "33_root", "to": 33}, {"arrowStrikethrough": false, "arrows": "to", "color": "red", "dashes": true, "from": "34_root", "to": 34}, {"arrowStrikethrough": false, "arrows": "to", "color": "blue", "dashes": true, "from": 8, "size": 2, "to": "8_leaf"}, {"arrows": "to", "color": "lightgrey", "from": "2_item_0", "title": "transport", "to": 2}, {"arrows": "to", "color": "lightgrey", "from": "4_item_0", "title": "transport", "to": 4}, {"arrows": "to", "color": "lightgrey", "from": "5_item_0", "title": "transport", "to": 5}, {"arrows": "to", "color": "lightgrey", "from": "7_item_0", "title": "transport", "to": 7}, {"arrows": "to", "color": "lightgrey", "from": "10_item_0", "title": "transport", "to": 10}, {"arrows": "to", "color": "lightgrey", "from": "9_item_0", "title": "transport", "to": 9}, {"arrows": "to", "color": "lightgrey", "from": "11_item_0", "title": "transport", "to": 11}, {"arrows": "to", "color": "lightgrey", "from": "14_item_0", "title": "transport", "to": 14}, {"arrows": "to", "color": "lightgrey", "from": "30_item_0", "title": "transport", "to": 30}, {"arrows": "to", "color": "lightgrey", "from": "29_item_0", "title": "transport", "to": 29}, {"arrows": "to", "color": "lightgrey", "from": "31_item_0", "title": "transport", "to": 31}, {"arrows": "to", "color": "lightgrey", "from": "38_item_0", "title": "transport", "to": 38}, {"arrows": "to", "color": "lightgrey", "from": "41_item_0", "title": "transport", "to": 41}, {"arrows": "to", "color": "lightgrey", "from": "42_item_0", "title": "transport", "to": 42}, {"arrows": "to", "color": "lightgrey", "from": "45_item_0", "title": "transport", "to": 45}, {"arrows": "to", "color": "lightgrey", "from": "50_item_0", "title": "transport", "to": 50}, {"arrows": "to", "color": "lightgrey", "from": "52_item_0", "title": "transport", "to": 52}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 80,
+            "springConstant": 0.05,
+            "springLength": 0
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

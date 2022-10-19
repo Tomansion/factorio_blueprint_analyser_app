@@ -7,7 +7,7 @@
 
 
 Python web server:
-    ☐ Create basic server
+    ☐ Create basic server @started(22-10-19 14:42)
     ☐ Send to frontend in dev or prod
     ☐ BP analyser sub python module
 
@@ -20,6 +20,7 @@ BP analysis:
 Display results:
     ☐ Display results in graph
     ☐ Display results like original BP
+    ☐ Implement a fork of https://github.com/piebro/factorio-blueprint-visualizer
 
 Last touches:
     ☐ Add an example in the upload page
