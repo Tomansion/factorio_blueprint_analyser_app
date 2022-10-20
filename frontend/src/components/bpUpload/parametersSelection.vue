@@ -11,7 +11,7 @@
           title="Inserter capacity bonus (research) - Factorio Wiki"
         >(Wiki)</a>
         <p-selectbutton
-          v-model="selectedInserterCapacity"
+          v-model="inserterCapacity"
           :options="inserterCapacityOptions"
           aria-labelledby="single"
         />
@@ -31,9 +31,24 @@ export default {
 
     return {
       inserterCapacityOptions,
-      selectedInserterCapacity: 1,
+      inserterCapacity: 1,
     };
   },
+  computed: {
+    parameters() {
+      return { inserterCapacity: this.inserterCapacity };
+    },
+  },
+  watch: {
+    parameters: {
+      handler() {
+        console.log(this.parameters, "parameters");
+        this.$emit("update", this.parameters);
+      },
+      deep: true,
+    },
+  },
+
 }
 </script>
 

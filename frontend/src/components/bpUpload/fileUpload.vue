@@ -18,6 +18,7 @@
         <p-button
           id="analyse"
           :disabled="pastedBlueprint === ''"
+          @click="analysePasted"
         >Analyse</p-button>
       </template>
     </p-card>
@@ -40,6 +41,7 @@
         <p-button
           id="analyse"
           :disabled="uploadedBlueprint === ''"
+          @click="analyseUploaded"
         >Analyse</p-button>
       </template>
     </p-card>
@@ -63,6 +65,12 @@ export default {
         this.uploadedBlueprint = e.target.result;
       };
       reader.readAsText(event.files[0]);
+    },
+    analysePasted() {
+      this.$emit('analyse', this.pastedBlueprint)
+    },
+    analyseUploaded() {
+      this.$emit('analyse', this.uploadedBlueprint)
     }
   }
 }

@@ -1,0 +1,21 @@
+Python web server:
+    ✔ Create basic server @started(22-10-19 19:37) @done(22-10-20 19:37) @lasted(1d45s)
+    ✔ Send to frontend in dev or prod @done(22-10-20 19:37)
+    ✔ BP analyser sub python module @done(22-10-20 19:37)
+
+BP analysis:
+    ✔ File upload UI @done(22-10-19 12:17)
+    ✔ Inserter capacity parameters @started(22-10-19 12:22) @done(22-10-19 12:48) @lasted(26m28s)
+    ✔ Send bp to backend @started(22-10-20 19:38) @done(22-10-21 01:09) @lasted(5h31m24s)
+    ☐ change page to result page
+    
+Display results:
+    ☐ Display results in graph
+    ☐ Display results like original BP
+    ☐ Implement a fork of https://github.com/piebro/factorio-blueprint-visualizer
+
+Last touches:
+    ☐ Add limitations (mods, etc)
+    ☐ Add an example in the upload page
+    ☐ Add logo
+    ☐ Factorio style

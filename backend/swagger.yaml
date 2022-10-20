@@ -23,11 +23,24 @@ paths:
       summary: Start an analysis
       tags: [Analysis]
       operationId: src.analysis.start
-      # parameters:
-      #   - name: blueprint
-      #     in: body
-      #     schema:
-      #       type: string
+      parameters:
+        - name: data
+          in: body
+          schema:
+            type: object
+            required: 
+              - blueprint
+              - parameters
+            properties:
+              blueprint:
+                type: string
+                description: The blueprint string or json string
+              parameters:
+                type: object
+                properties:
+                  inserterCapacity:
+                    type: integer
+                    description: The inserters capacity bonus  
       responses:
         200:
           schema:
