@@ -33,7 +33,7 @@ def send_frontend(path):
                 response = Response(resp.content, resp.status_code, headers)
                 return response
             except (requests.exceptions.ConnectionError, requests.exceptions.Timeout):
-                return "You are in a development environment and the DebAI frontend is not available at the url : " + DEV_FRONTEND_URL, 503
+                return "You are in a development environment and the frontend is not available at the url : " + DEV_FRONTEND_URL, 503
 
 
 # For serving the dashboard

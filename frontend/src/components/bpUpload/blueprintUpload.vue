@@ -22,16 +22,16 @@ export default {
   },
   methods: {
     startAnalysis(blueprint) {
-      console.log(blueprint, "blueprint");
-      console.log("starting an analysis with", this.parameters.inserterCapacity, "inserterCapacity");
-      axios.post('analysis', {
-        blueprint: blueprint,
-        parameters: this.parameters
-      }).then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
-        console.log(error);
-      });
+      axios.post('analysis', { blueprint: blueprint, parameters: this.parameters })
+        .then((response) => {
+          console.log(response);
+        }).catch((error) => {
+          console.log(error);
+          if ("error" in error.response.data)
+            this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: error.response.data.error, life: 3000 });
+          else
+            this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: "Unknown error", life: 3000 });
+        });
     },
     parametersUpdate(parameters) {
       console.log(parameters, "parameters");

@@ -40,6 +40,8 @@ paths:
                 properties:
                   inserterCapacity:
                     type: integer
+                    minimum: 0
+                    maximum: 7
                     description: The inserters capacity bonus  
       responses:
         200:

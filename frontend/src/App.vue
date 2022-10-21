@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <Toast position="bottom-center"  />
+
     <!-- Tool bar -->
     <p-toolbar>
       <template #start>
@@ -98,11 +100,12 @@
 <script>
 import blueprintUpload from './components/bpUpload/blueprintUpload.vue'
 import packageJson from "../package.json";
+import Toast from 'primevue/toast';
 
 export default {
   name: 'App',
   components: {
-    blueprintUpload
+    blueprintUpload, Toast
   },
   data() {
     const version = packageJson.version;
@@ -111,6 +114,9 @@ export default {
       introCollapsed: true,
       devCollapsed: true,
     }
+  },
+  mounted() {
+    this.$toast.add({ severity: 'info', summary: 'Welcome', detail: 'Welcome to the Factorio blueprint analyser', life: 3000 });
   },
   methods: {
     openGithub() {

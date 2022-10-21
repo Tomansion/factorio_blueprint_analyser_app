@@ -26,7 +26,8 @@ import FileUpload from 'primevue/fileupload';
 app.component("p-fileupload", FileUpload)
 import SelectButton from 'primevue/selectbutton';
 app.component("p-selectbutton", SelectButton)
-
+import ToastService from 'primevue/toastservice';
+app.use(ToastService);
 
 // Mount the app
 app.mount('#app')
