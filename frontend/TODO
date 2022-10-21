@@ -9,8 +9,9 @@ BP analysis:
     ✔ Send bp to backend @started(22-10-20 19:38) @done(22-10-21 01:09) @lasted(5h31m24s)
     ✔ Add parameters @started(22-10-21 11:59) @done(22-10-21 12:05) @lasted(6m41s)
     ✔ Display errors @done(22-10-21 18:12)
-    ☐ Switch page to result page @started(22-10-21 18:17)
-    
+    ✔ Switch page to result page @started(22-10-21 18:17) @done(22-10-21 18:56) @lasted(39m22s)
+    ☐ Add loading animation
+
 Display results:
     ☐ Display results in graph
     ☐ Display results like original BP

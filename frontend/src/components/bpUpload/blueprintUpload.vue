@@ -25,9 +25,11 @@ export default {
       axios.post('analysis', { blueprint: blueprint, parameters: this.parameters })
         .then((response) => {
           console.log(response);
+          // Analysis successfull
+          this.$router.push({ name: 'Analysis', params: { analysedBlueprint: response.data } })
         }).catch((error) => {
           console.log(error);
-          if ("error" in error.response.data)
+          if (error.response && "error" in error.response.data)
             this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: error.response.data.error, life: 3000 });
           else
             this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: "Unknown error", life: 3000 });
