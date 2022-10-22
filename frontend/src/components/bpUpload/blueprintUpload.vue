@@ -12,6 +12,15 @@
       color="var(--primary)"
       stroke="#0057e7"
     />
+    <p-card style="width:60%;overflow-wrap: anywhere;">
+      <template #title>
+        Example
+      </template>
+      <template #content>
+        <textarea
+          style="width: 100%;height: 150px;">0eJydlWFrgzAQhv9KyedZmmiM7V8ZpWh7jIBGSdJREf/7ziBsjG2d77e743yfU873JtG0dxq8dVGcdpOw194Fjl4nEeybq9tUjeNAHAgbqRMvO+HqLuX0GDyFkEVfuzD0PmYNtVHM3GLdjR7cIzn5l9YfGmo+c0Yu2mhpnS5l48Xdu4b8wnk+FncMfWCN3qVJFums2muujyk0e71gb9bTde1SafzvMAXCSgSWgzCDwAoQViAwDcI0Ait/37UfIQqBmI2QHIFUGyEHBHLcCJEIRB6wDcBgctsrQZ9NgtYALYIErQFabQlaA/SzStAantrQckjS5WHdz8vHxbZm0VRl7XypvJMP62OVLMxRGa2LQpvy62mq5g9Rzj3B</textarea>
+      </template>
+    </p-card>
   </div>
 </template>
 
@@ -19,6 +28,7 @@
 import FileUpload from './fileUpload.vue'
 import ParametersSelection from './parametersSelection.vue'
 import axios from 'axios'
+import { analysisStore } from '@/stores/analysis'
 
 export default {
   components: {
@@ -26,7 +36,7 @@ export default {
   },
   data() {
     return {
-      inserterCapacity: 1,
+      inserterCapacity: 0,
       parameters: { inserterCapacity: 1 },
       loading: false,
     }
@@ -36,10 +46,13 @@ export default {
       this.loading = true
       axios.post('analysis', { blueprint: blueprint, parameters: this.parameters })
         .then((response) => {
-          console.log(response);
-          // Analysis successfull
-          this.$router.push({ name: 'Analysis', params: { analysedBlueprint: response.data } })
+          // Analysis successfull !
+          // Save the analysed blueprint in the store
+          analysisStore.analysedBlueprint = response.data
+          // Redirect to the analysis page
+          this.$router.push({ name: 'Analysis' })
         }).catch((error) => {
+          // Analysis failed
           console.log(error);
           if (error.response && "error" in error.response.data)
             this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: error.response.data.error, life: 3000 });

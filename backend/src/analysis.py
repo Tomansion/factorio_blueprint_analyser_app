@@ -14,6 +14,7 @@ def ping():
 def start(data):
     print(data)
     print("Init analysis...")
+    data["parameters"]["displayNetwork"] = False
     blueprint_analyser.init(data["parameters"])
     print("Starting analysis...")
     try:

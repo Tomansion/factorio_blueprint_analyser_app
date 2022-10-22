@@ -31,7 +31,7 @@ export default {
 
     return {
       inserterCapacityOptions,
-      inserterCapacity: 1,
+      inserterCapacity: 0,
     };
   },
   computed: {
