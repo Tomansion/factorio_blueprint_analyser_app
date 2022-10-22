@@ -50,7 +50,7 @@ export default {
           // Save the analysed blueprint in the store
           analysisStore.analysedBlueprint = response.data
           // Redirect to the analysis page
-          this.$router.push({ name: 'Analysis' })
+          this.$router.push({ name: 'AnalysisPage' })
         }).catch((error) => {
           // Analysis failed
           console.log(error);
