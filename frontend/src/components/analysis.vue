@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-link :to="'/'"></router-link>
     Hello
     {{analysedBlueprint}}
     <div id="mynetwork"></div>
@@ -10,6 +11,7 @@
 import { analysisStore } from '@/stores/analysis'
 import { Network } from "vis-network";
 import { DataSet } from "vis-data";
+import ansUtil from './analysis/analysis.js'
 
 export default {
   name: 'analysis-page',
@@ -20,34 +22,22 @@ export default {
   },
   mounted() {
     this.analysedBlueprint = analysisStore.analysedBlueprint
-
-    if (this.analysedBlueprint === undefined) {
+    if (
+      !this.analysedBlueprint ||
+      !this.analysedBlueprint.blueprint
+    ) {
       this.$router.push({ name: 'Home' })
     }
-    console.log(Network);
-    console.log(DataSet);
 
-    var nodes = new DataSet([
-      { id: 1, label: "Node 1" },
-      { id: 2, label: "Node 2" },
-      { id: 3, label: "Node 3" },
-      { id: 4, label: "Node 4" },
-      { id: 5, label: "Node 5" },
-    ]);
+    var nodes = new DataSet(ansUtil.getNodesFromAnalysedBlueprint(this.analysedBlueprint.blueprint));
+    var edges = new DataSet(ansUtil.getEdgesFromAnalysedBlueprint(this.analysedBlueprint.blueprint));
 
-    var edges = new DataSet([
-      { from: 1, to: 3 },
-      { from: 1, to: 2 },
-      { from: 2, to: 4 },
-      { from: 2, to: 5 },
-      { from: 3, to: 3 },
-    ]);
 
     var options = {};
 
     // create a network
     var container = document.getElementById("mynetwork");
-    var network = new Network(container, { nodes, edges }, options);
+    new Network(container, { nodes, edges }, options);
   }
 }
 </script>
