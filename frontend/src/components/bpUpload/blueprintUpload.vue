@@ -2,6 +2,16 @@
   <div id="blueprintUpload">
     <ParametersSelection @update="parametersUpdate" />
     <FileUpload @analyse="startAnalysis" />
+    <p-progressspinner
+      v-if="loading"
+      id="loading"
+      style="width:50px;height:50px"
+      strokeWidth="8"
+      fill="var(--surface-ground)"
+      animationDuration="1s"
+      color="var(--primary)"
+      stroke="#0057e7"
+    />
   </div>
 </template>
 
@@ -17,11 +27,13 @@ export default {
   data() {
     return {
       inserterCapacity: 1,
-      parameters: { inserterCapacity: 1 }
+      parameters: { inserterCapacity: 1 },
+      loading: false,
     }
   },
   methods: {
     startAnalysis(blueprint) {
+      this.loading = true
       axios.post('analysis', { blueprint: blueprint, parameters: this.parameters })
         .then((response) => {
           console.log(response);
@@ -33,7 +45,9 @@ export default {
             this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: error.response.data.error, life: 3000 });
           else
             this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: "Unknown error", life: 3000 });
-        });
+        }).finally(() => {
+          this.loading = false
+        })
     },
     parametersUpdate(parameters) {
       console.log(parameters, "parameters");
@@ -61,5 +75,10 @@ export default {
 #uploadContent {
   display: flex;
   flex-direction: column;
+}
+
+#loading {
+  position: absolute;
+  top: 80%;
 }
 </style>

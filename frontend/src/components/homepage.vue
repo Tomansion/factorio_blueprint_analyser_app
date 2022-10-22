@@ -10,6 +10,7 @@
       <template #end>
         {{version}}
         <p-button
+          id="github"
           icon="pi pi-github"
           class="p-button-secondary"
           @click="openGithub"
@@ -128,6 +129,9 @@ export default {
 /* Toolbar */
 .p-toolbar {
   width: 100%;
+}
+#github {
+  margin-left: 10px;
 }
 
 .p-toolbar h1 {

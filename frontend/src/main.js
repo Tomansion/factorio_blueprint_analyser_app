@@ -28,8 +28,11 @@ import FileUpload from 'primevue/fileupload';
 app.component("p-fileupload", FileUpload)
 import SelectButton from 'primevue/selectbutton';
 app.component("p-selectbutton", SelectButton)
+import ProgressSpinner from 'primevue/progressspinner';
+app.component("p-progressspinner", ProgressSpinner)
 import ToastService from 'primevue/toastservice';
 app.use(ToastService);
+
 
 // Mount the app
 app.mount('#app')

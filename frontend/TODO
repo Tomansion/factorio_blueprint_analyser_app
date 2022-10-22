@@ -10,7 +10,7 @@ BP analysis:
     ✔ Add parameters @started(22-10-21 11:59) @done(22-10-21 12:05) @lasted(6m41s)
     ✔ Display errors @done(22-10-21 18:12)
     ✔ Switch page to result page @started(22-10-21 18:17) @done(22-10-21 18:56) @lasted(39m22s)
-    ☐ Add loading animation
+    ✔ Add loading animation @done(22-10-22 13:42)
 
 Display results:
     ☐ Display results in graph
