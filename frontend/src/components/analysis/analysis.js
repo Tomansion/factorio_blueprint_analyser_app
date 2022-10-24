@@ -1,6 +1,17 @@
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+function nameToImageName(entityName) {
+  // Convert entity name to image name
+  // Example : "fast-transport-belt" -> "Fast_transport_belt.png"
+  return capitalizeFirstLetter(entityName.replace(/-/g, '_')) + ".png";
+}
+
 function getNodesFromAnalysedBlueprint(blueprint) {
   if (!blueprint.entities) throw new Error('No entities in blueprint');
 
+  const positionRatioIncrement = 50;
+  const imageBaseUrl = "https://wiki.factorio.com/images/"
   // Expected node : {id: '', label: 'entityName'}
   const nodes = [];
 
@@ -10,7 +21,11 @@ function getNodesFromAnalysedBlueprint(blueprint) {
 
     nodes.push({
       id: entity.entity_number,
-      label: entity.name
+      // label: entity.name,
+      x: entity.position.x * positionRatioIncrement,
+      y: entity.position.y * positionRatioIncrement,
+      image: imageBaseUrl + nameToImageName(entity.name), // "Fast_transport_belt.png"
+      size: entity.name.includes("assembling-machine" ) ? 50 : 20,
     });
   })
   console.log("nodes")

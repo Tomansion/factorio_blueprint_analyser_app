@@ -27,18 +27,44 @@ export default {
       !this.analysedBlueprint.blueprint
     ) {
       this.$router.push({ name: 'Home' })
+    } else {
+      this.createGraph()
     }
 
-    var nodes = new DataSet(ansUtil.getNodesFromAnalysedBlueprint(this.analysedBlueprint.blueprint));
-    var edges = new DataSet(ansUtil.getEdgesFromAnalysedBlueprint(this.analysedBlueprint.blueprint));
+  },
+  methods: {
+    createGraph() {
+      // Create a vis-network graph
+      const container = document.getElementById("mynetwork");
+      const nodes = new DataSet(ansUtil.getNodesFromAnalysedBlueprint(this.analysedBlueprint.blueprint));
+      const edges = new DataSet(ansUtil.getEdgesFromAnalysedBlueprint(this.analysedBlueprint.blueprint));
 
+      const options = {
+        interaction: { dragNodes: false },
+        physics: false,
+        nodes: {
+          shape: "image",
+          size: 10,
+          font: {
+            size: 32,
+          },
+          color: "white",
+          borderWidth: 2,
+        },
+        edges: {
+          width: 1,
+          arrows: "to",
+          color: "white",
+          font: {
+            size: 32,
+          },
+        },
+      };
 
-    var options = {};
-
-    // create a network
-    var container = document.getElementById("mynetwork");
-    new Network(container, { nodes, edges }, options);
-  }
+      // create a network
+      new Network(container, { nodes, edges }, options);
+    }
+  },
 }
 </script>
 

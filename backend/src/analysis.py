@@ -1,8 +1,10 @@
-import json, os
 from factorio_blueprint_analyser import blueprint_analyser
+import json
+
 #############################################################################
 # Factorio Blueprint Analyser: Analysis manager
 #############################################################################
+
 
 def ping():
     # Send app version
@@ -11,7 +13,9 @@ def ping():
         version = json.load(f)['version']
     return version, 200
 
+
 def start(data):
+
     print(data)
     print("Init analysis...")
     data["parameters"]["displayNetwork"] = False

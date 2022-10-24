@@ -13,9 +13,20 @@ BP analysis:
     ✔ Add loading animation @done(22-10-22 13:42)
 
 Display results:
-    ☐ Display results in graph
-    ☐ Display results like original BP
-    ☐ Implement a fork of https://github.com/piebro/factorio-blueprint-visualizer
+    Display results in graph:
+        ✔ Basic graph @done(22-10-22 17:56)
+        ✔ Position entities @done(22-10-24 17:00)
+        ✔ Images @done(22-10-24 17:00)
+        ☐ Add transported items
+        ☐ Add use rate
+        ☐ Filan style
+
+    ☐ Complete the dashboard
+    ☐ Add bp name and desc
+    ☐ Add global stats
+
+    ☐ (Display results like original BP)
+    ☐ (Implement a fork of https://github.com/piebro/factorio-blueprint-visualizer)
 
 Last touches:
     ☐ Add limitations (mods, etc)
