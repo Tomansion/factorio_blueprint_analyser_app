@@ -17,8 +17,10 @@ Display results:
         ✔ Basic graph @done(22-10-22 17:56)
         ✔ Position entities @done(22-10-24 17:00)
         ✔ Images @done(22-10-24 17:00)
-        ☐ Add transported items
+        ✔ Add transported items @started(22-10-24 17:01) @done(22-10-24 17:35) @lasted(34m40s)
+        ☐ Add recipies
         ☐ Add use rate
+        ☐ Add Input and output
         ☐ Filan style
 
     ☐ Complete the dashboard

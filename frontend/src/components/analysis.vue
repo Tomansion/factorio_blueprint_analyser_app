@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <router-link :to="'/'"></router-link>
-    Hello
-    {{analysedBlueprint}}
+  <div id="analysis">
+    <router-link :to="'/'">Menu</router-link>
     <div id="mynetwork"></div>
   </div>
 </template>
@@ -28,6 +26,7 @@ export default {
     ) {
       this.$router.push({ name: 'Home' })
     } else {
+      console.log(this.analysedBlueprint.blueprint, "analysedBlueprint");
       this.createGraph()
     }
 
@@ -36,25 +35,38 @@ export default {
     createGraph() {
       // Create a vis-network graph
       const container = document.getElementById("mynetwork");
-      const nodes = new DataSet(ansUtil.getNodesFromAnalysedBlueprint(this.analysedBlueprint.blueprint));
-      const edges = new DataSet(ansUtil.getEdgesFromAnalysedBlueprint(this.analysedBlueprint.blueprint));
+      const { nodes, edges } = ansUtil.getAnalysedBlueprintNetwork(this.analysedBlueprint.blueprint);
+
+      const data = {
+        nodes: new DataSet(nodes),
+        edges: new DataSet(edges)
+      }
 
       const options = {
         interaction: { dragNodes: false },
         physics: false,
         nodes: {
           shape: "image",
-          size: 10,
-          font: {
-            size: 32,
+          // font: { size: 32 },
+          color: {
+            border: "#2B7CE9",
+            background: "#97C2FC",
+            highlight: {
+              border: "#2B7CE9",
+              background: "#D2E5FF",
+            },
+            hover: {
+              border: "#2B7CE9",
+              background: "#D2E5FF",
+            },
           },
-          color: "white",
           borderWidth: 2,
+          borderWidthSelected: 10,
         },
         edges: {
-          width: 1,
+          width: 0,
           arrows: "to",
-          color: "white",
+          color: "grey",
           font: {
             size: 32,
           },
@@ -62,16 +74,26 @@ export default {
       };
 
       // create a network
-      new Network(container, { nodes, edges }, options);
+      new Network(container, data, options);
     }
   },
 }
 </script>
 
 <style>
+body, html, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#analysis {
+  width: 100%;
+  height: 100%;
+}
+
 #mynetwork {
-  width: 600px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
   border: 1px solid lightgray;
 }
 </style>
