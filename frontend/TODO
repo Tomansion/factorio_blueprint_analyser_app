@@ -17,15 +17,18 @@ Display results:
         ✔ Basic graph @done(22-10-22 17:56)
         ✔ Position entities @done(22-10-24 17:00)
         ✔ Images @done(22-10-24 17:00)
-        ✔ Add transported items @started(22-10-24 17:01) @done(22-10-24 17:35) @lasted(34m40s)
-        ☐ Add recipies
-        ☐ Add use rate
-        ☐ Add Input and output
-        ☐ Filan style
+        ✔ Add transported items @started(22-10-24 17:01) @done(22-10-24 17:35) @lasted(34m57s)
+        ✔ Add recipies @started(22-10-24 17:35) @done(22-10-24 17:59) @lasted(24m34s)
+        ✔ Add use rate @started(22-10-24 18:21) @done(22-10-25 13:12) @lasted(18h51m1s)
+        ✔ Final style @started(22-10-25 13:12) @done(22-10-25 15:14) @lasted(2h2m42s)
+        ✔ Add Input and output @started(22-10-25 15:04) @done(22-10-25 15:14) @lasted(10m26s)
+        ☐ Highlight bottlenecks
+        ☐ Add legend for colors
 
     ☐ Complete the dashboard
     ☐ Add bp name and desc
     ☐ Add global stats
+    ☐ Make parameters work
 
     ☐ (Display results like original BP)
     ☐ (Implement a fork of https://github.com/piebro/factorio-blueprint-visualizer)

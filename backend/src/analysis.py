@@ -17,9 +17,13 @@ def ping():
 def start(data):
 
     print(data)
+    
     print("Init analysis...")
     data["parameters"]["displayNetwork"] = False
+    data["parameters"]["verbose_level"] = 1
+
     blueprint_analyser.init(data["parameters"])
+
     print("Starting analysis...")
     try:
         res = blueprint_analyser.analyse_blueprint(data["blueprint"])

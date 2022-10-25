@@ -30,6 +30,8 @@ import SelectButton from 'primevue/selectbutton';
 app.component("p-selectbutton", SelectButton)
 import ProgressSpinner from 'primevue/progressspinner';
 app.component("p-progressspinner", ProgressSpinner)
+import Menubar from 'primevue/menubar';
+app.component("p-menubar", Menubar)
 import ToastService from 'primevue/toastservice';
 app.use(ToastService);
 
