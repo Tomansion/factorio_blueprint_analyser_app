@@ -52,7 +52,10 @@ function getAnalysedBlueprintNetwork(blueprint) {
       color: {
         background: "transparent",
         border: "transparent",
-      }
+      },
+      font: {
+        color: "#ffffff",
+      },
     }
 
     // Deal with input and output
@@ -60,6 +63,14 @@ function getAnalysedBlueprintNetwork(blueprint) {
       newNode.color.border = "blue";
     if (entity.output)
       newNode.color.border = "green";
+    if (entity.usage_rate && entity.usage_rate >= 0.5) {
+      newNode.color.border = "yellow";
+      newNode.font.color = "yellow";
+    }
+    if (entity.usage_rate && entity.usage_rate >= 1) {
+      newNode.color.border = "red";
+      newNode.font.color = "red";
+    }
 
     nodes.push(newNode);
 
