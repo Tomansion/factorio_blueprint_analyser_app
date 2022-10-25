@@ -49,6 +49,8 @@ export default {
           // Analysis successfull !
           // Save the analysed blueprint in the store
           analysisStore.analysedBlueprint = response.data
+          // Save the parameters used for the analysis
+          analysisStore.parameters = this.parameters
           // Redirect to the analysis page
           this.$router.push({ name: 'AnalysisPage' })
         }).catch((error) => {

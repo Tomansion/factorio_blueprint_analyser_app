@@ -32,12 +32,14 @@
           id="data"
           v-if="analysedBlueprint !== null"
         >
+          <!-- name -->
           <div id="blueprintName">
             <u>Name:</u>
-            <h4>
+            <b style="padding-left: 10px;">
               {{analysedBlueprint.blueprint.label}}
-            </h4>
+            </b>
           </div>
+          <!-- description -->
           <div
             id="blueprintDescription"
             v-if="analysedBlueprint.blueprint.description"
@@ -45,6 +47,7 @@
             <u>Description:</u>
             {{analysedBlueprint.blueprint.description}}
           </div>
+          <!-- icons -->
           <div id="blueprintIcons">
             <u>Icons:</u>
             <br>
@@ -54,6 +57,36 @@
               :key="i"
               :src="itemNameToIcon(icon.signal.name)"
             />
+          </div>
+          <!-- Consumed items -->
+          <div
+            id="consumedItems"
+            v-if="analysedBlueprint.blueprint.items_input"
+          >
+            <u>Consumed items:</u>
+            <br>
+            <div
+              class="item"
+              v-for="(item, i) in Object.keys(analysedBlueprint.blueprint.items_input)"
+              :key="i"
+            >
+              {{item}}: <b>{{analysedBlueprint.blueprint.items_input[item]}}/s</b>
+            </div>
+          </div>
+          <!-- Produced items -->
+          <div
+            id="producedItems"
+            v-if="analysedBlueprint.blueprint.items_output"
+          >
+            <u>Produced items:</u>
+            <br>
+            <div
+              class="item"
+              v-for="(item, i) in Object.keys(analysedBlueprint.blueprint.items_output)"
+              :key="i"
+            >
+              {{item}}: <b>{{analysedBlueprint.blueprint.items_output[item]}}/s</b>
+            </div>
           </div>
         </div>
       </template>
@@ -65,11 +98,9 @@
         Parameters
       </template>
       <template #content>
-        <div id="data">
-          <div id="blueprintName">
-          </div>
-          <div id="blueprintDescription">
-            Blueprint description
+        <div id="parameters" v-if="parameters">
+          <div class="parameter" v-for="(para, i) in Object.keys(parameters)" :key="i">
+            {{para}}: <b>{{parameters[para]}}</b>
           </div>
         </div>
       </template>
@@ -91,7 +122,7 @@
             @click="newIssue"
             title="Report an issue"
           >😥 Did something went wrong?</p-button>
-          <p-button>📥 Export Json</p-button>
+          <p-button @click="downloadObjectAsJson(analysedBlueprint, 'analysed_blueprint')">📥 Export Json</p-button>
         </div>
       </template>
     </p-menubar>
@@ -111,11 +142,13 @@ export default {
     const version = packageJson.version;
     return {
       analysedBlueprint: null,
+      parameters: null,
       version,
     }
   },
   mounted() {
     this.analysedBlueprint = analysisStore.analysedBlueprint
+    this.parameters = analysisStore.parameters
     if (
       !this.analysedBlueprint ||
       !this.analysedBlueprint.blueprint
@@ -205,7 +238,7 @@ export default {
               size: 15,
               color: "grey",
             },
-            size: 15,
+            size: 10,
             shape: "square",
           }
         },
@@ -235,6 +268,15 @@ export default {
     newIssue() {
       window.open("https://github.com/Tomansion/factorio_blueprint_analyser_app/issues/new", '_blank').focus();
     },
+    downloadObjectAsJson(exportObj, exportName) {
+      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+      var downloadAnchorNode = document.createElement('a');
+      downloadAnchorNode.setAttribute("href", dataStr);
+      downloadAnchorNode.setAttribute("download", exportName + ".json");
+      document.body.appendChild(downloadAnchorNode); // required for firefox
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+    }
   },
 }
 </script>
@@ -243,7 +285,7 @@ export default {
 #analysis {
   display: grid;
   grid-template-columns: 260px 1fr;
-  grid-template-rows: 80px 3.9fr 2.1fr 80px;
+  grid-template-rows: 80px 3.9fr 1fr 80px;
   grid-auto-flow: row;
   grid-template-areas:
     "header header"
@@ -282,6 +324,12 @@ export default {
   grid-area: data;
 }
 
+#data {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 #blueprintIcons {
   display: flex;
   flex-wrap: wrap;
@@ -290,8 +338,8 @@ export default {
 }
 
 #blueprintIcons img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 
 .config {

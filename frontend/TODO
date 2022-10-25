@@ -25,9 +25,12 @@ Display results:
         ✔ Highlight bottlenecks @started(22-10-25 15:17) @done(22-10-25 15:23) @lasted(6m26s)
         ✔ Add legend for colors @done(22-10-25 15:42)
 
-    ☐ Complete the dashboard
-    ☐ Add bp name and desc
-    ☐ Add global stats
+    Complete the dashboard:
+        ✔ Add bp name incons and desc @done(22-10-25 15:43)
+        ✔ Produced and consumed items @started(22-10-25 15:44) @done(22-10-25 16:07) @lasted(23m35s)
+        ✔ download data @done(22-10-25 16:13)
+        ✔ Display parameters @started(22-10-25 16:13) @done(22-10-25 16:17) @lasted(4m46s)
+
     ☐ Make parameters work
 
     ☐ (Display results like original BP)

@@ -7,4 +7,4 @@ requests == 2.25.1
 swagger-ui-bundle == 0.0.5
 openapi_spec_validator == 0.2.8
 
-factorioBlueprintAnalyser == 1.3.0
+factorioBlueprintAnalyser == 1.3.2
