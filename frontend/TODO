@@ -32,9 +32,9 @@ Display results:
         ✔ Display parameters @started(22-10-25 16:13) @done(22-10-25 16:17) @lasted(4m46s)
 
     ☐ Make parameters work
-
-    ☐ (Display results like original BP)
-    ☐ (Implement a fork of https://github.com/piebro/factorio-blueprint-visualizer)
+    ☐ Fix multiple analysis bug
+    ☐ Analyis should crach when recipe wasn't found
+    ☐ Fix one inserter 3 ingredients problem
 
 Last touches:
     ☐ Add limitations (mods, etc)
@@ -43,3 +43,4 @@ Last touches:
     ☐ Factorio style
     ☐ Ignore chest output
     ☐ Ignore specific chests
+    ☐ Spend money on UI UX rexwork

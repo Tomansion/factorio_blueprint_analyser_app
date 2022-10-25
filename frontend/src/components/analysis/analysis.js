@@ -14,6 +14,9 @@ function nameToImageName(entityName) {
     "logistic-chest-buffer": "Buffer_chest.png",
     "logistic-chest-requester": "Requester_chest.png",
     "logistic-chest-storage": "Storage_chest.png",
+    "effectivity-module": "Efficiency_module.png",
+    "effectivity-module-2": "Efficiency_module_2.png",
+    "effectivity-module-3": "Efficiency_module_3.png",
   }
 
   if (exceptions[entityName]) return exceptions[entityName];
