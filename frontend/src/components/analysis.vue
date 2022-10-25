@@ -193,6 +193,20 @@ export default {
             imagePadding: 5,
             borderWidth: 0,
             shapeProperties: { useBorderWithImage: true },
+          },
+          legend: {
+            interaction: {
+              dragNodes: false,
+              hover: false,
+              selectable: false,
+              keyboard: { enabled: false },
+            },
+            font: {
+              size: 15,
+              color: "grey",
+            },
+            size: 15,
+            shape: "square",
           }
         },
       };
@@ -204,9 +218,11 @@ export default {
       // We want to display use rate and transported items on hover
       network.on("hoverNode", (e) => {
         const label_info = ansUtil.getHoverLabel(e.node, this.analysedBlueprint.blueprint);
+        if (label_info === null) return
         nodesDataset.update({ id: e.node, label: label_info });
       });
       network.on("blurNode", (e) => {
+        if (e.node.includes("legend")) return
         nodesDataset.update({ id: e.node, label: "" });
       });
     },
@@ -280,6 +296,7 @@ export default {
 
 .config {
   grid-area: config;
+  color: #ff880021;
 }
 
 .graph {

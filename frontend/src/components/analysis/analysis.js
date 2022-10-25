@@ -21,6 +21,19 @@ function nameToImageName(entityName) {
   return result
 }
 
+function getMostLeftNode(nodes) {
+  return nodes.reduce((mostLeftNode, node) => {
+    if (node.x < mostLeftNode.x) return node;
+    return mostLeftNode;
+  }, nodes[0]);
+}
+function getMostTopNode(nodes) {
+  return nodes.reduce((mostTopNode, node) => {
+    if (node.y < mostTopNode.y) return node;
+    return mostTopNode;
+  }, nodes[0]);
+}
+
 function getAnalysedBlueprintNetwork(blueprint) {
   if (!blueprint.entities) throw new Error('No entities in blueprint');
 
@@ -121,13 +134,72 @@ function getAnalysedBlueprintNetwork(blueprint) {
     }
   })
 
+  // Add legends
+  const mostLeftNode = getMostLeftNode(nodes);
+  const mostTopNode = getMostTopNode(nodes);
+  nodes.push({
+    id: "legend/inputLegend",
+    group: "legend",
+    label: "Materials input",
+    x: mostLeftNode.x - 150,
+    y: mostTopNode.y,
+    color: {
+      background: "transparent",
+      border: "blue",
+      hover: {
+        background: "transparent", border: "blue"
+      },
+    }
+  }, {
+    id: "legend/outputLegend",
+    group: "legend",
+    label: "Materials output",
+    x: mostLeftNode.x - 150,
+    y: mostTopNode.y + 60,
+    color: {
+      background: "transparent",
+      border: "green",
+      hover: {
+        background: "transparent", border: "green"
+      },
+    }
+  }, {
+    id: "legend/usageRateLegend",
+    group: "legend",
+    label: "Usage rate > 50%",
+    x: mostLeftNode.x - 150,
+    y: mostTopNode.y + 120,
+    color: {
+      background: "transparent",
+      border: "yellow",
+      hover: {
+        background: "transparent", border: "yellow"
+      },
+    }
+  }, {
+    id: "legend/bottleneckLegend",
+    group: "legend",
+    label: "Usage rate = 100%\n(Bottleneck)",
+    x: mostLeftNode.x - 150,
+    y: mostTopNode.y + 180,
+    color: {
+      background: "transparent",
+      border: "red",
+      hover: {
+        background: "transparent", border: "red"
+      },
+    }
+  });
 
-
-  return { nodes, edges };
+  return {
+    nodes,
+    edges,
+  }
 }
 
 function getHoverLabel(node, blueprint) {
   // Possible id : 
+  //    legend/...                 : legend
   //    1,                         : entity
   //    1/transported/iron-plate,  : transported item
   //    1/recipe                   : recipe
@@ -136,6 +208,8 @@ function getHoverLabel(node, blueprint) {
   //    entity : Use rate
   //    transported item : items per second
   //    recipe : nothing
+
+  if (node.includes("legend/")) return null;
 
   if (node.includes("/transported/")) {
     const entityNumber = node.split("/")[0];
