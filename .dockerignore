@@ -1,0 +1,18 @@
+# Root
+TODO
+README.md
+LICENSE
+.vscode
+
+# Back
+backend/__pycache__/
+backend/data/
+backend/tests/
+backend/lib/
+backend/.vscode/
+
+# Front
+frontend/node_modules/
+frontend/dist/
+frontend/TODO/
+frontend/.vscode/

@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  debiai:
+    build: .
+    image: "factorio-blueprint-analysis"
+    ports:
+      - "3000:3000"
