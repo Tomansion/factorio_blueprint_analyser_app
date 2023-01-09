@@ -35,6 +35,8 @@ app.component("p-menubar", Menubar)
 import ToastService from 'primevue/toastservice';
 app.use(ToastService);
 
+// import Image from 'primevue/image';
+// app.component("p-image", Image)
 
 // Mount the app
 app.mount('#app')

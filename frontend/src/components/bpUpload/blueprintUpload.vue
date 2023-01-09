@@ -79,6 +79,7 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 30px;
+  padding: 30px;
 }
 
 .uploadCard {}

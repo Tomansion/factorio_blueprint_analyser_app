@@ -1,24 +1,27 @@
 <template>
-  <p-card id="parametersSelection">
-    <template #title>
-      Analysis parameters
-    </template>
-    <template #content>
-      <div id="inserterCapacity">
-        Inserter capacity bonus<a
-          href="https://wiki.factorio.com/Inserter_capacity_bonus_(research)"
-          target="_blank"
-          title="Inserter capacity bonus (research) - Factorio Wiki"
-        >(Wiki)</a>
-        <p-selectbutton
-          v-model="inserterCapacity"
-          :options="inserterCapacityOptions"
-          aria-labelledby="single"
-        />
-      </div>
+  <div
+    id="inserterCapacity"
+    class="parameter"
+  >
+    <img src="https://wiki.factorio.com/images/Inserter_capacity_bonus_%28research%29.png" />
 
-    </template>
-  </p-card>
+    <div class="title">
+      <h1>
+        Inserter capacity bonus
+      </h1>
+      <a
+        href="https://wiki.factorio.com/Inserter_capacity_bonus_(research)"
+        target="_blank"
+        title="Inserter capacity bonus (research) - Factorio Wiki"
+      >Learn more about this on the Wiki</a>
+    </div>
+
+    <p-selectbutton
+      v-model="inserterCapacity"
+      :options="inserterCapacityOptions"
+      aria-labelledby="single"
+    />
+  </div>
 </template>
 
 <script>
@@ -53,9 +56,30 @@ export default {
 </script>
 
 <style scoped>
-#inserterCapacity {
+.parameter {
   display: flex;
-  gap: 10px;
+  gap: 0px;
   align-items: center;
 }
-</style>
+
+.parameter img {
+  width: 60px;
+  height: 60px;
+}
+
+.parameter .title {
+  display: flex;
+  flex-direction: column;
+  padding-right: 60px;
+  padding-left: 20px;
+}
+.parameter .title h1 {
+  padding: 0;
+  margin: 0;
+  color: orange;
+}
+
+.parameter .title a {
+  text-decoration: underline;
+}
+</style> 
