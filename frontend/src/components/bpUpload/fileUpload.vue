@@ -1,8 +1,8 @@
 <template>
   <div id="fileUpload">
-    <h1 id="title">
+    <h2 id="title">
       Set your blueprint
-    </h1>
+    </h2>
 
     <div id="methods">
       <!-- Blueprint paste -->

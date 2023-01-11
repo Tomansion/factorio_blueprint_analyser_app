@@ -76,7 +76,7 @@ export default {
 
 #content {
   flex: 1;
-  background-color: blue;
+  background-color: rgb(69, 69, 106);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
   border-radius: 15px;
 }

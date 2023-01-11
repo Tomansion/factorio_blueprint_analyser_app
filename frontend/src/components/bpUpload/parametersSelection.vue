@@ -6,9 +6,9 @@
     <img src="https://wiki.factorio.com/images/Inserter_capacity_bonus_%28research%29.png" />
 
     <div class="title">
-      <h1>
+      <h2>
         Inserter capacity bonus
-      </h1>
+      </h2>
       <a
         href="https://wiki.factorio.com/Inserter_capacity_bonus_(research)"
         target="_blank"
@@ -16,11 +16,31 @@
       >Learn more about this on the Wiki</a>
     </div>
 
-    <p-selectbutton
+    <!-- <p-selectbutton
       v-model="inserterCapacity"
       :options="inserterCapacityOptions"
       aria-labelledby="single"
-    />
+    /> -->
+    <div id="slider">
+      <div id="p-slider">
+        <p-slider
+          v-model="inserterCapacity"
+          :step="1"
+          :min="inserterCapacityOptions[0]"
+          :max="inserterCapacityOptions[inserterCapacityOptions.length - 1]"
+        />
+      </div>
+      <div id="values">
+        <div
+          :class="'value' + (inserterCapacity == i ? ' selected' : '')"
+          v-for="i in inserterCapacityOptions"
+          :key="i"
+          @click="inserterCapacity = i"
+        >
+          {{ i }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -73,7 +93,8 @@ export default {
   padding-right: 60px;
   padding-left: 20px;
 }
-.parameter .title h1 {
+
+.parameter .title h2 {
   padding: 0;
   margin: 0;
   color: orange;
@@ -81,5 +102,64 @@ export default {
 
 .parameter .title a {
   text-decoration: underline;
+}
+
+#inserterCapacityValue {
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Slider  */
+#slider {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 20px;
+}
+
+#slider #p-slider {
+  padding: 0 23px 0 23px;
+}
+
+#slider #values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5em;
+  color: lightgray;
+}
+
+#slider #values .value {
+  cursor: pointer;
+  text-align: center;
+  flex: 1;
+}
+
+#slider #values .selected {
+  color: orange;
+  font-weight: bold;
+}
+</style> 
+
+<style>
+#slider .p-slider {
+  background-color: rgb(51, 47, 68);
+  border-radius: 30px;
+  height: 0.9em;
+}
+
+#slider .p-slider-range {
+  background-color: rgb(140, 91, 0);
+  border-radius: 30px;
+}
+
+#slider .p-slider .p-slider-handle {
+  background-color: orange;
+  border: none;
+  height: 1.8em;
+  width: 1.8em;
+  margin-top: -0.915rem;
+  margin-left: -0.915rem;
 }
 </style> 

@@ -1,5 +1,6 @@
 <template>
   <div id="blueprintUpload">
+    <h1>Analysis settings</h1>
     <ParametersSelection @update="parametersUpdate" />
     <FileUpload @analyse="startAnalysis" />
     <p-progressspinner
@@ -80,6 +81,9 @@ export default {
   align-items: center;
   gap: 30px;
   padding: 30px;
+}
+#blueprintUpload h1{
+  align-self: start;
 }
 
 .uploadCard {}
