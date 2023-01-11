@@ -2,7 +2,11 @@
   <div id="blueprintUpload">
     <h1>Analysis settings</h1>
     <ParametersSelection @update="parametersUpdate" />
+    <h2>Set your blueprint</h2>
     <FileUpload @analyse="startAnalysis" />
+    <h2>Blueprint exemples</h2>
+    <BlueprintExemples @select="blueprintSelected" />
+
     <p-progressspinner
       v-if="loading"
       id="loading"
@@ -13,27 +17,21 @@
       color="var(--primary)"
       stroke="#0057e7"
     />
-    <p-card style="width:60%;overflow-wrap: anywhere;">
-      <template #title>
-        Example
-      </template>
-      <template #content>
-        <textarea
-          style="width: 100%;height: 150px;">0eNqdlVFuwyAMhu/iZ6hCGkKTA+wS0zSR1GqREhIB3VZVufugkbZqTTroI0b+/Bv48QWa7oSjUdpBfQHVDtpC/XoBqw5adiHmziNCDcphDwS07MNKWot90yl9oL1sj0ojZTARUHqPX1CzifyLcEZqOw7G0QY7d5OcT28EUDvlFM5irovzuz71DRpPX2MQGAfr0wYdqgYdG07gDDWtthvuK+yVwXbez4PEP+A8GpylgbdPgHMPXkAV0ahtmkYeDc7TwGU0mKeBRTS4SAPvfsBKWzTOx+6Q4r+LqqLViXV1xQKYZdHkMq1vFu8s+vtQsyj0M95iyyfLnrFTtsIqIu6arfdaLjH543/ygVNnvqer+cc0g6YHlIZ+HhE7WCpWRjTAExsQiQ2ItQbuPvn7WjFmqxL1x3uPsbR3nMebjz20iJ9x13lY30xgAp30rBDzxBfZhqP+QGPnnB0rRJULzouCi/Jm2u6mb9CYh4M=</textarea>
-      </template>
-    </p-card>
+
   </div>
 </template>
 
 <script>
 import FileUpload from './fileUpload.vue'
 import ParametersSelection from './parametersSelection.vue'
+import BlueprintExemples from './blueprintExemples.vue'
+
 import axios from 'axios'
 import { analysisStore } from '@/stores/analysis'
 
 export default {
   components: {
-    ParametersSelection, FileUpload
+    ParametersSelection, FileUpload, BlueprintExemples
   },
   data() {
     return {
@@ -68,6 +66,8 @@ export default {
     parametersUpdate(parameters) {
       console.log(parameters, "parameters");
       this.parameters = { ...parameters };
+    },
+    blueprintSelected() {
     }
   }
 }
@@ -77,24 +77,16 @@ export default {
 #blueprintUpload {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 30px;
-  padding: 30px;
-}
-#blueprintUpload h1{
-  align-self: start;
+  padding: 40px 100px 20px 100px;
 }
 
-.uploadCard {}
-
-#analyse {
-  margin-top: 1em;
+#blueprintUpload h1 {
+  margin-bottom: 0;
+  transform: translateX(-40px);
 }
-
-#uploadContent {
-  display: flex;
-  flex-direction: column;
+#blueprintUpload h2 {
+  margin-bottom: 0;
 }
 
 #loading {

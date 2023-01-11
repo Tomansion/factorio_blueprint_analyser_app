@@ -1,9 +1,5 @@
 <template>
   <div id="fileUpload">
-    <h2 id="title">
-      Set your blueprint
-    </h2>
-
     <div id="methods">
       <!-- Blueprint paste -->
       <div
@@ -11,18 +7,14 @@
         class="method"
       >
         <textarea
-          id=""
+          id="pasteArea"
           placeholder="Paste your Json or encoded blueprint here"
           v-model="pastedBlueprint"
+          @change="uploadedBlueprint = ''"
         />
-        <!-- <p-button
-          id="analyse"
-          :disabled="pastedBlueprint === ''"
-          @click="analysePasted"
-        >Analyse</p-button> -->
       </div>
 
-      <span id="or">OR</span>
+      <span id="or">Or</span>
 
       <!-- Blueprint upload -->
       <div
@@ -35,20 +27,21 @@
           name="demo[]"
           :customUpload="true"
           @select="myUploader"
-          chooseLabel="Upload Json or Encoded text"
-          :maxFileSize="10000"
+          chooseLabel="Upload your Json or text file"
+          :maxFileSize="1000000"
         />
-        <!-- <p-button
-        id="analyse"
-        :disabled="uploadedBlueprint === ''"
-        @click="analyseUploaded"
-      >Analyse</p-button> -->
       </div>
+      <span id="or">And <br> then</span>
+      <p-button
+        id="analyse"
+        :disabled="uploadedBlueprint === '' && pastedBlueprint === ''"
+        @click="analyseBlueprint"
+      >Analyse <br>→</p-button>
     </div>
   </div>
 
 </template>
-  
+
 <script>
 export default {
   data() {
@@ -63,42 +56,38 @@ export default {
       const reader = new FileReader();
       reader.onload = (e) => {
         this.uploadedBlueprint = e.target.result;
+        this.pastedBlueprint = ''
       };
       reader.readAsText(event.files[0]);
     },
-    analysePasted() {
-      this.$emit('analyse', this.pastedBlueprint)
-    },
-    analyseUploaded() {
-      this.$emit('analyse', this.uploadedBlueprint)
+    analyseBlueprint() {
+      if (this.uploadedBlueprint === '' && this.pastedBlueprint === '') return
+      if (this.uploadedBlueprint !== '') this.$emit('analyse', this.uploadedBlueprint)
+      if (this.pastedBlueprint !== '') this.$emit('analyse', this.pastedBlueprint)
     }
   }
 }
 </script>
-  
+
 <style>
-#fileUpload {
-  width: 80%;
-  text-align: center;
-}
-
-#title {
-  text-align: left;
-}
-
 #methods {
   display: flex;
-  gap: 30px;
+  gap: 20px;
 }
 
 .method {
   flex: 1;
 }
 
-#paste textarea {
+#paste #pasteArea {
   width: 100%;
-  height: 100px;
+  height: 150px;
   resize: none;
+  border-radius: 5px;
+  border: none;
+  padding: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 #or {
@@ -107,11 +96,7 @@ export default {
   font-size: 1.5em;
 }
 
-#uploadContent {
-  display: flex;
-  flex-direction: column;
-}
-
+/* Upload button style */
 .p-fileupload {
   height: 100%;
   width: 100%;
@@ -124,7 +109,12 @@ export default {
 
 .p-fileupload .p-button .p-button-icon {
   transform: scale(2);
-  translate: 30%;
+  translate: 150%;
+}
+
+.p-fileupload .p-button-label {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-left: 40px;
 }
 </style>
-  

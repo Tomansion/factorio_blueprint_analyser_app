@@ -16,11 +16,6 @@
       >Learn more about this on the Wiki</a>
     </div>
 
-    <!-- <p-selectbutton
-      v-model="inserterCapacity"
-      :options="inserterCapacityOptions"
-      aria-labelledby="single"
-    /> -->
     <div id="slider">
       <div id="p-slider">
         <p-slider
@@ -90,6 +85,7 @@ export default {
 .parameter .title {
   display: flex;
   flex-direction: column;
+  gap: 8px;
   padding-right: 60px;
   padding-left: 20px;
 }
@@ -102,20 +98,15 @@ export default {
 
 .parameter .title a {
   text-decoration: underline;
-}
-
-#inserterCapacityValue {
-  padding-left: 20px;
-  font-size: 20px;
-  font-weight: bold;
+  color: white;
 }
 
 /* Slider  */
 #slider {
-  width: 400px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 25px;
   padding-top: 20px;
 }
 
@@ -140,15 +131,15 @@ export default {
   color: orange;
   font-weight: bold;
 }
-</style> 
 
-<style>
 #slider .p-slider {
   background-color: rgb(51, 47, 68);
   border-radius: 30px;
   height: 0.9em;
 }
+</style> 
 
+<style>
 #slider .p-slider-range {
   background-color: rgb(140, 91, 0);
   border-radius: 30px;
