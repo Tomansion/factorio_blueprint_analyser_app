@@ -4,7 +4,7 @@
     <ParametersSelection @update="parametersUpdate" />
     <h2>Set your blueprint</h2>
     <FileUpload @analyse="startAnalysis" />
-    <BlueprintExemples @select="blueprintSelected" />
+    <BlueprintExemples @analyse="blueprintSelected" />
 
     <p-progressspinner
       v-if="loading"
@@ -66,8 +66,10 @@ export default {
       console.log(parameters, "parameters");
       this.parameters = { ...parameters };
     },
-    blueprintSelected() {
-    }
+    blueprintSelected(blueprint) {
+      this.startAnalysis(blueprint)
+    },
+
   }
 }
 </script>
@@ -84,6 +86,7 @@ export default {
   margin-bottom: 0;
   transform: translateX(-40px);
 }
+
 #blueprintUpload h2 {
   margin-bottom: 0;
 }

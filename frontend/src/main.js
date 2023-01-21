@@ -40,5 +40,8 @@ app.component("p-slider", Slider)
 // import Image from 'primevue/image';
 // app.component("p-image", Image)
 
+// Main CSS
+import './assets/css/main.css'
+
 // Mount the app
 app.mount('#app')
