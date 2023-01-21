@@ -7,21 +7,7 @@
 
     <!-- Dashboard content and footer -->
     <div id="dashboard">
-      <div id="content">
-        <blueprintUpload />
-      </div>
-      <div id="footer">
-        <div id="version">
-          {{ version }}
-        </div>
-        <p-button
-          id="github"
-          icon="pi pi-github"
-          class="p-button-secondary"
-          @click="openGithub"
-        >
-        </p-button>
-      </div>
+      <blueprintUpload />
     </div>
 
   </div>
@@ -30,24 +16,10 @@
 <script>
 import blueprintUpload from './bpUpload/blueprintUpload.vue'
 import TextDesc from './info/TextDesc.vue'
-import packageJson from "../../package.json";
 
 export default {
   name: 'Home-page',
   components: { TextDesc, blueprintUpload },
-  data() {
-    const version = packageJson.version;
-    return {
-      version,
-      introCollapsed: true,
-      devCollapsed: true,
-    }
-  },
-  methods: {
-    openGithub() {
-      window.open("https://github.com/tomansion/factorio_blueprint_analyser_app/", '_blank').focus();
-    }
-  }
 }
 </script>
 
@@ -56,22 +28,19 @@ export default {
   height: 100vh;
   display: flex;
   padding: 30px;
+  gap: 40px;
 }
 
 #info {
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 50px;
-  padding-top: 30px;
 }
 
 #dashboard {
   flex: 1.3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 10px;
 }
 
 #content {
@@ -81,24 +50,34 @@ export default {
   border-radius: 15px;
 }
 
-#footer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  background-color: lightcyan;
-  border-radius: 15px;
-  color: black;
-  height: 100px;
-  padding: 15px;
+/* Style for small screens */
+@media only screen and (max-width: 1000px) {
+  #homepage {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  #info {
+    padding: 0;
+  }
+
+  #dashboard {
+    flex: 0.8;
+  }
 }
 
-#version {
-  font-size: 1.5em;
-  font-weight: bold;
-}
+/* Style for extra small screens */
+@media only screen and (max-width: 700px) {
+  #homepage {
+    padding: 10px;
+  }
 
-#github {
-  margin-left: 20px;
-  transform: scale(1.5);
+  #info {
+    padding: 0;
+  }
+
+  #dashboard {
+    flex: 0.8;
+  }
 }
 </style>

@@ -1,19 +1,16 @@
 <template>
   <div id="blueprintUpload">
-    <h1>Analysis settings</h1>
     <ParametersSelection @update="parametersUpdate" />
     <FileUpload @analyse="startAnalysis" />
     <BlueprintExemples @analyse="blueprintSelected" />
+    <AppFooter />
 
     <p-progressspinner
       v-if="loading"
       id="loading"
-      style="width:50px;height:50px"
-      strokeWidth="8"
-      fill="var(--surface-ground)"
-      animationDuration="1s"
-      color="var(--primary)"
-      stroke="#0057e7"
+      style="width:120px;height:120px"
+      strokeWidth="10"
+      color="#FF9800"
     />
 
   </div>
@@ -23,13 +20,14 @@
 import FileUpload from './fileUpload.vue'
 import ParametersSelection from './parametersSelection.vue'
 import BlueprintExemples from './blueprintExemples.vue'
+import AppFooter from './appFooter.vue'
 
 import axios from 'axios'
 import { analysisStore } from '@/stores/analysis'
 
 export default {
   components: {
-    ParametersSelection, FileUpload, BlueprintExemples
+    ParametersSelection, FileUpload, BlueprintExemples, AppFooter
   },
   data() {
     return {
@@ -75,23 +73,15 @@ export default {
 
 <style scoped>
 #blueprintUpload {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding: 40px 100px 20px 100px;
-}
-
-#blueprintUpload h1 {
-  margin-bottom: 0;
-  transform: translateX(-40px);
-}
-
-#blueprintUpload h2 {
-  margin-bottom: 0;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 #loading {
   position: absolute;
-  top: 80%;
+  top: 50%;
 }
 </style>

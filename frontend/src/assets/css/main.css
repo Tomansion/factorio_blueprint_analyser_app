@@ -12,11 +12,16 @@
   padding: 15px;
 }
 
-.pannel h2 {
-  color: #e6e6e6;
-  font-size: 20px;
+.pannel h1 {
+  font-size: 25px;
   font-weight: bold;
   margin: 0 0 10px 0;
+}
+
+.pannel h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
 }
 
 /* Main btn */
@@ -32,6 +37,7 @@
   box-shadow: inset 0px 2px 1px 0px #a4a4a4;
   border: none;
   padding: 0 20px 0 20px;
+  font-size: 1.05em;
 }
 
 .mainBtn:hover {
@@ -59,7 +65,7 @@
 }
 
 /* Main btn list */
-.mainBtnList {
+.list {
   display: flex;
   flex-direction: column;
   gap: 5px;

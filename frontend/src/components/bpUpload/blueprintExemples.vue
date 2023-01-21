@@ -7,7 +7,7 @@
     <div id="blueprintExemplesContainer">
       <div
         id="exemplesList"
-        class="mainBtnList"
+        class="list"
       >
         <button
           :class="'blueprintBtn mainBtn' + (i === selectedExempleIndex ? ' selected' : '')"
@@ -20,12 +20,16 @@
       </div>
 
       <div id="blueprintDetails">
-        <img
-          id="blueprintImage"
-          :src="'blueprintExemples/' + exempleBlueprints[selectedExempleIndex].id + '.png'"
-          alt="blueprint exemple image"
+        <div
+          id="blueprintPannel"
           @click="zoomOnImage"
         >
+          <img
+            id="blueprintImage"
+            :src="'blueprintExemples/' + exempleBlueprints[selectedExempleIndex].id + '.png'"
+            alt="blueprint exemple image"
+          >
+        </div>
         <div id="btns">
           <button
             id="copyBtn"
@@ -100,7 +104,6 @@ export default {
 
 <style scoped>
 #blueprintExemples {
-  height: 300px;
 }
 
 #blueprintExemplesContainer {
@@ -124,15 +127,22 @@ export default {
   gap: 10px;
 }
 
-#blueprintImage {
+#blueprintPannel {
   flex: 1;
-  max-width: 100%;
-  max-height: 180px;
-  object-fit: contain;
   background-color: #1c1b22;
   padding: 5px;
-  box-shadow: 0px 0px 2px 0px #000000;
+  box-shadow: 0px 0px 2px 0px #424242;
   cursor: zoom-in;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#blueprintImage {
+  object-fit: contain;
+  max-width: 100%;
+  height: 30vh;
 }
 
 #btns {

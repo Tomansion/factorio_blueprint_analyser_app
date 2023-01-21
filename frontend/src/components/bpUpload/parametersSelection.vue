@@ -1,38 +1,50 @@
 <template>
   <div
-    id="inserterCapacity"
-    class="parameter"
+    id="parametersSelection"
+    class="pannel"
   >
-    <img src="https://wiki.factorio.com/images/Inserter_capacity_bonus_%28research%29.png" />
+    <h2>Analysis settings</h2>
 
-    <div class="title">
-      <h2>
-        Inserter capacity bonus
-      </h2>
-      <a
-        href="https://wiki.factorio.com/Inserter_capacity_bonus_(research)"
-        target="_blank"
-        title="Inserter capacity bonus (research) - Factorio Wiki"
-      >Learn more about this on the Wiki</a>
-    </div>
+    <div
+      id="parameters"
+      class="list"
+    >
+      <div
+        id="inserterCapacity"
+        class="parameter"
+      >
+        <img src="https://wiki.factorio.com/images/Inserter_capacity_bonus_%28research%29.png" />
 
-    <div id="slider">
-      <div id="p-slider">
-        <p-slider
-          v-model="inserterCapacity"
-          :step="1"
-          :min="inserterCapacityOptions[0]"
-          :max="inserterCapacityOptions[inserterCapacityOptions.length - 1]"
-        />
-      </div>
-      <div id="values">
-        <div
-          :class="'value' + (inserterCapacity == i ? ' selected' : '')"
-          v-for="i in inserterCapacityOptions"
-          :key="i"
-          @click="inserterCapacity = i"
-        >
-          {{ i }}
+        <div class="title">
+          <h2>
+            Inserter capacity bonus
+          </h2>
+          <a
+            href="https://wiki.factorio.com/Inserter_capacity_bonus_(research)"
+            target="_blank"
+            title="Inserter capacity bonus (research) - Factorio Wiki"
+          >Learn more about this on the Wiki</a>
+        </div>
+
+        <div id="slider">
+          <div id="p-slider">
+            <p-slider
+              v-model="inserterCapacity"
+              :step="1"
+              :min="inserterCapacityOptions[0]"
+              :max="inserterCapacityOptions[inserterCapacityOptions.length - 1]"
+            />
+          </div>
+          <div id="values">
+            <div
+              :class="'value' + (inserterCapacity == i ? ' selected' : '')"
+              v-for="i in inserterCapacityOptions"
+              :key="i"
+              @click="inserterCapacity = i"
+            >
+              {{ i }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
