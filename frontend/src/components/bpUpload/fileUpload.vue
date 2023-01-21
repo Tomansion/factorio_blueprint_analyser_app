@@ -1,5 +1,10 @@
 <template>
-  <div id="fileUpload">
+  <div
+    id="fileUpload"
+    class="pannel"
+  >
+    <h2>Set your blueprint</h2>
+
     <div id="methods">
       <!-- Blueprint paste -->
       <div
@@ -14,8 +19,6 @@
         />
       </div>
 
-      <span id="or">Or</span>
-
       <!-- Blueprint upload -->
       <div
         id="upload"
@@ -23,6 +26,7 @@
       >
         <!-- <p>Encoded text and JSON files are supported </p> -->
         <p-fileupload
+          class="mainBtn"
           mode="basic"
           name="demo[]"
           :customUpload="true"
@@ -31,13 +35,13 @@
           :maxFileSize="1000000"
         />
       </div>
-      <span id="or">And <br> then</span>
-      <p-button
-        id="analyse"
-        :disabled="uploadedBlueprint === '' && pastedBlueprint === ''"
-        @click="analyseBlueprint"
-      >Analyse <br>→</p-button>
     </div>
+    <button
+      id="analyse"
+      class="arrowBtn"
+      :disabled="uploadedBlueprint === '' && pastedBlueprint === ''"
+      @click="analyseBlueprint"
+    >Analyse</button>
   </div>
 
 </template>
@@ -70,6 +74,11 @@ export default {
 </script>
 
 <style>
+#fileUpload {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 #methods {
   display: flex;
   gap: 20px;
@@ -81,25 +90,21 @@ export default {
 
 #paste #pasteArea {
   width: 100%;
-  height: 150px;
+  height: 90px;
   resize: none;
   border-radius: 5px;
   border: none;
   padding: 20px;
   font-size: 1.5em;
   font-weight: bold;
-}
-
-#or {
-  display: flex;
-  align-items: center;
-  font-size: 1.5em;
+  background-color: var(--secondary);
 }
 
 /* Upload button style */
 .p-fileupload {
   height: 100%;
   width: 100%;
+  padding: 5px;
 }
 
 .p-fileupload .p-button {
@@ -116,5 +121,9 @@ export default {
   font-size: 1.2em;
   font-weight: bold;
   margin-left: 40px;
+}
+
+#analyse {
+  margin-top: 10px;
 }
 </style>

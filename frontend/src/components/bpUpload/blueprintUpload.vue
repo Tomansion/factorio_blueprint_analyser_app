@@ -2,7 +2,6 @@
   <div id="blueprintUpload">
     <h1>Analysis settings</h1>
     <ParametersSelection @update="parametersUpdate" />
-    <h2>Set your blueprint</h2>
     <FileUpload @analyse="startAnalysis" />
     <BlueprintExemples @analyse="blueprintSelected" />
 

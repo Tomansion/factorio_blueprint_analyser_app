@@ -126,6 +126,7 @@ export default {
 
 #blueprintImage {
   flex: 1;
+  max-width: 100%;
   max-height: 180px;
   object-fit: contain;
   background-color: #1c1b22;
