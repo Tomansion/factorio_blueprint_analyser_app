@@ -4,7 +4,6 @@
     <ParametersSelection @update="parametersUpdate" />
     <h2>Set your blueprint</h2>
     <FileUpload @analyse="startAnalysis" />
-    <h2>Blueprint exemples</h2>
     <BlueprintExemples @select="blueprintSelected" />
 
     <p-progressspinner
