@@ -155,7 +155,6 @@ export default {
     ) {
       this.$router.push({ name: 'Home' })
     } else {
-      console.log(this.analysedBlueprint.blueprint, "analysedBlueprint");
       this.createGraph()
     }
 

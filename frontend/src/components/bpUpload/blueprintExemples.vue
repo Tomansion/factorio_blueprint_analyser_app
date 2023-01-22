@@ -148,6 +148,7 @@ export default {
 
 #btns {
   display: flex;
+  align-items: center;
   gap: 10px;
 }
 
@@ -157,5 +158,6 @@ export default {
 
 #analyseBtn {
   flex: 1;
+  margin: 0;
 }
 </style>

@@ -29,7 +29,7 @@
         <div id="slider">
           <div id="p-slider">
             <p-slider
-              v-model="inserterCapacity"
+              v-model="inserterCapacityBonus"
               :step="1"
               :min="inserterCapacityOptions[0]"
               :max="inserterCapacityOptions[inserterCapacityOptions.length - 1]"
@@ -37,10 +37,10 @@
           </div>
           <div id="values">
             <div
-              :class="'value' + (inserterCapacity == i ? ' selected' : '')"
+              :class="'value' + (inserterCapacityBonus == i ? ' selected' : '')"
               v-for="i in inserterCapacityOptions"
               :key="i"
-              @click="inserterCapacity = i"
+              @click="inserterCapacityBonus = i"
             >
               {{ i }}
             </div>
@@ -61,18 +61,17 @@ export default {
 
     return {
       inserterCapacityOptions,
-      inserterCapacity: 0,
+      inserterCapacityBonus: 0,
     };
   },
   computed: {
     parameters() {
-      return { inserterCapacity: this.inserterCapacity };
+      return { inserterCapacityBonus: this.inserterCapacityBonus };
     },
   },
   watch: {
     parameters: {
       handler() {
-        console.log(this.parameters, "parameters");
         this.$emit("update", this.parameters);
       },
       deep: true,

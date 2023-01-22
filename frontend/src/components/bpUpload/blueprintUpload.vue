@@ -31,8 +31,8 @@ export default {
   },
   data() {
     return {
-      inserterCapacity: 0,
-      parameters: { inserterCapacity: 1 },
+      inserterCapacityBonus: 0,
+      parameters: { inserterCapacityBonus: 1 },
       loading: false,
     }
   },
@@ -60,7 +60,6 @@ export default {
         })
     },
     parametersUpdate(parameters) {
-      console.log(parameters, "parameters");
       this.parameters = { ...parameters };
     },
     blueprintSelected(blueprint) {
