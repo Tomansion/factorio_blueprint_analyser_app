@@ -1,0 +1,130 @@
+/* Variables */
+:root {
+  --primary: #313031;
+  --secondary: #252223;
+  --tertiary: #8e8e8e;
+}
+
+/* Pannel */
+.pannel {
+  box-shadow: inset 0px 1px 2px 1px #605e60;
+  background-color: var(--primary);
+  padding: 15px;
+}
+
+.pannel h1 {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+}
+
+.pannel h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+/* Main btn */
+.mainBtn {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--tertiary);
+  color: #1d1d1d;
+  font-weight: bold;
+  box-shadow: inset 0px 2px 1px 0px #a4a4a4;
+  border: none;
+  padding: 0 20px 0 20px;
+  font-size: 1.05em;
+}
+
+.mainBtn:hover {
+  background: #eb9928;
+  box-shadow: inset 0px 2px 1px 0px #a2691a;
+}
+
+.mainBtn:active {
+  background: #a2691a;
+  box-shadow: inset 0px 2px 1px 0px #a2691a;
+}
+
+.mainBtn.selected {
+  background: #6c6c6c;
+  box-shadow: inset 0px 2px 1px 0px #292929;
+}
+
+.mainBtn.selected:hover {
+  cursor: default;
+  box-shadow: inset 0px 2px 1px 0px #292929;
+}
+
+.mainBtn:active {
+  box-shadow: inset 0px 2px 1px 0px #292929;
+}
+
+/* Main btn list */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 7px;
+  background-color: var(--secondary);
+  box-shadow: 0px 0px 3px 0px #000000;
+}
+
+/* Arrow btn */
+.arrowBtn {
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 15px;
+  height: 30px;
+  background: #56b466;
+  color: #1d1d1d;
+  font-weight: bold;
+  box-shadow: inset 0px 2px 2px 0px #647a64;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.arrowBtn:hover {
+  background: #76a676;
+}
+
+.arrowBtn:active {
+  background: #7ba34d;
+}
+
+.arrowBtn:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: rotate(-20deg);
+  background-color: var(--primary);
+  /* to see where it is */
+  left: calc(100% - 8px);
+  top: 0%;
+  transform-origin: 0 0;
+}
+
+.arrowBtn::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: rotate(290deg);
+  background-color: var(--primary);
+  left: calc(100% - 8px);
+  top: 100%;
+  transform-origin: 0 0;
+}
+
+.arrowBtn:disabled {
+  background: #3c5340;
+  box-shadow: inset 0px 2px 2px 0px #292929;
+  cursor: default;
+}

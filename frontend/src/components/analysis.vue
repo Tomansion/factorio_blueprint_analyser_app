@@ -1,110 +1,95 @@
 <template>
   <div id="analysis">
-    <p-menubar class="header">
-      <template #start>
-        <div id="menuStart">
-          <p-button @click="$router.push('/')">🡠 New analysis</p-button>
-          <h1> Factorio Blueprint Analysis </h1>
-        </div>
-        <!-- <router-link :to="'/'">Menu</router-link> -->
-      </template>
-      <template #end>
-        <div id="menuEnd">
-          {{version}}
-          <p-button
-            id="github"
-            icon="pi pi-github"
-            class="p-button-secondary"
-            @click="openGithub"
-          >
-          </p-button>
-        </div>
-      </template>
-    </p-menubar>
+    <div class="header pannel">
+      <button
+        class="mainBtn"
+        @click="$router.push('/')"
+      >🡠 New analysis</button>
+      <h1> Factorio Blueprint Analysis </h1>
+    </div>
 
     <!-- Blueprint data -->
-    <p-card class="data">
-      <template #title>
-        Blueprint
-      </template>
-      <template #content>
+    <div class="data pannel">
+      <h2>Blueprint</h2>
+      <div
+        id="data"
+        v-if="analysedBlueprint !== null"
+      >
+        <!-- name -->
+        <div id="blueprintName">
+          <u>Name:</u>
+          <b style="padding-left: 10px;">
+            {{ analysedBlueprint.blueprint.label }}
+          </b>
+        </div>
+        <!-- description -->
         <div
-          id="data"
-          v-if="analysedBlueprint !== null"
+          id="blueprintDescription"
+          v-if="analysedBlueprint.blueprint.description"
         >
-          <!-- name -->
-          <div id="blueprintName">
-            <u>Name:</u>
-            <b style="padding-left: 10px;">
-              {{analysedBlueprint.blueprint.label}}
-            </b>
-          </div>
-          <!-- description -->
+          <u>Description:</u>
+          {{ analysedBlueprint.blueprint.description }}
+        </div>
+        <!-- icons -->
+        <div id="blueprintIcons">
+          <u>Icons:</u>
+          <br>
+          <img
+            class="icon"
+            v-for="(icon, i) in analysedBlueprint.blueprint.icons"
+            :key="i"
+            :src="itemNameToIcon(icon.signal.name)"
+          />
+        </div>
+        <!-- Consumed items -->
+        <div
+          id="consumedItems"
+          v-if="analysedBlueprint.blueprint.items_input"
+        >
+          <u>Consumed items:</u>
+          <br>
           <div
-            id="blueprintDescription"
-            v-if="analysedBlueprint.blueprint.description"
+            class="item"
+            v-for="(item, i) in Object.keys(analysedBlueprint.blueprint.items_input)"
+            :key="i"
           >
-            <u>Description:</u>
-            {{analysedBlueprint.blueprint.description}}
-          </div>
-          <!-- icons -->
-          <div id="blueprintIcons">
-            <u>Icons:</u>
-            <br>
-            <img
-              class="icon"
-              v-for="(icon, i) in analysedBlueprint.blueprint.icons"
-              :key="i"
-              :src="itemNameToIcon(icon.signal.name)"
-            />
-          </div>
-          <!-- Consumed items -->
-          <div
-            id="consumedItems"
-            v-if="analysedBlueprint.blueprint.items_input"
-          >
-            <u>Consumed items:</u>
-            <br>
-            <div
-              class="item"
-              v-for="(item, i) in Object.keys(analysedBlueprint.blueprint.items_input)"
-              :key="i"
-            >
-              {{item}}: <b>{{analysedBlueprint.blueprint.items_input[item]}}/s</b>
-            </div>
-          </div>
-          <!-- Produced items -->
-          <div
-            id="producedItems"
-            v-if="analysedBlueprint.blueprint.items_output"
-          >
-            <u>Produced items:</u>
-            <br>
-            <div
-              class="item"
-              v-for="(item, i) in Object.keys(analysedBlueprint.blueprint.items_output)"
-              :key="i"
-            >
-              {{item}}: <b>{{analysedBlueprint.blueprint.items_output[item]}}/s</b>
-            </div>
+            {{ item }}: <b>{{ analysedBlueprint.blueprint.items_input[item] }}/s</b>
           </div>
         </div>
-      </template>
-    </p-card>
+        <!-- Produced items -->
+        <div
+          id="producedItems"
+          v-if="analysedBlueprint.blueprint.items_output"
+        >
+          <u>Produced items:</u>
+          <br>
+          <div
+            class="item"
+            v-for="(item, i) in Object.keys(analysedBlueprint.blueprint.items_output)"
+            :key="i"
+          >
+            {{ item }}: <b>{{ analysedBlueprint.blueprint.items_output[item] }}/s</b>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Analysis parameters -->
-    <p-card class="config">
-      <template #title>
-        Parameters
-      </template>
-      <template #content>
-        <div id="parameters" v-if="parameters">
-          <div class="parameter" v-for="(para, i) in Object.keys(parameters)" :key="i">
-            {{para}}: <b>{{parameters[para]}}</b>
-          </div>
+    <div class="config pannel">
+      <h2>Parameters</h2>
+      <div
+        id="parameters"
+        v-if="parameters"
+      >
+        <div
+          class="parameter"
+          v-for="(para, i) in Object.keys(parameters)"
+          :key="i"
+        >
+          {{ para }}: <b>{{ parameters[para]}}</b>
         </div>
-      </template>
-    </p-card>
+      </div>
+    </div>
 
     <!-- Analysis results -->
     <div
@@ -114,18 +99,33 @@
     </div>
 
     <!-- Buttons -->
-    <p-menubar class="buttons">
-      <template #end>
-        <div id="buttons">
-          <p-button
-            class="p-button-secondary"
-            @click="newIssue"
-            title="Report an issue"
-          >😥 Did something went wrong?</p-button>
-          <p-button @click="downloadObjectAsJson(analysedBlueprint, 'analysed_blueprint')">📥 Export Json</p-button>
-        </div>
-      </template>
-    </p-menubar>
+    <div class="buttons pannel">
+      <div id="buttons">
+        <button
+          class="mainBtn"
+          @click="newIssue"
+          title="Report an issue"
+        >😥 Did something went wrong?</button>
+        <button
+          class="mainBtn"
+          @click="copyResults()"
+        >📋 Copy results</button>
+        <button
+          class="mainBtn"
+          @click="downloadObjectAsJson(analysedBlueprint, 'analysed_blueprint')"
+        >📥 Export Json</button>
+      </div>
+      <div id="menuEnd">
+        {{ version }}
+        <p-button
+          id="github"
+          icon="pi pi-github"
+          class="p-button-secondary"
+          @click="openGithub"
+        >
+        </p-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -155,7 +155,6 @@ export default {
     ) {
       this.$router.push({ name: 'Home' })
     } else {
-      console.log(this.analysedBlueprint.blueprint, "analysedBlueprint");
       this.createGraph()
     }
 
@@ -276,16 +275,26 @@ export default {
       document.body.appendChild(downloadAnchorNode); // required for firefox
       downloadAnchorNode.click();
       downloadAnchorNode.remove();
-    }
+    },
+    copyResults() {
+      const text = JSON.stringify(this.analysedBlueprint, null, 2);
+      navigator.clipboard.writeText(text);
+      this.$toast.add({ severity: 'success', summary: 'Results copied', detail: "The blueprint results has been copied to your clipboard", life: 3000 });
+    },
   },
 }
 </script>
 
-<style>
+<style scoped>
+.pannel {
+  margin: 7px;
+  padding: 9px;
+}
+
 #analysis {
   display: grid;
   grid-template-columns: 260px 1fr;
-  grid-template-rows: 80px 3.9fr 1fr 80px;
+  grid-template-rows: 70px 3.9fr 1fr auto;
   grid-auto-flow: row;
   grid-template-areas:
     "header header"
@@ -296,16 +305,19 @@ export default {
   height: 99%;
 }
 
-.p-card,
-.p-menubar {
-  padding: 10px;
-  margin: 10px;
-  box-shadow: 5px 5px 15px 5px #00000021 !important;
-}
 
 
 .header {
   grid-area: header;
+  display: flex;
+  align-items: stretch;
+  gap: 30px;
+}
+
+.header h1 {
+  align-items: center;
+  display: flex;
+  margin: 0;
 }
 
 #menuStart {
@@ -322,6 +334,7 @@ export default {
 
 .data {
   grid-area: data;
+  overflow: auto;
 }
 
 #data {
@@ -344,7 +357,6 @@ export default {
 
 .config {
   grid-area: config;
-  color: #ff880021;
 }
 
 .graph {
@@ -354,10 +366,45 @@ export default {
 
 .buttons {
   grid-area: buttons;
+  display: flex;
 }
 
 #buttons {
   display: flex;
   gap: 10px;
+  flex: 1;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.buttons button {
+  min-height: 40px;
+}
+
+/* Grid for small screens */
+@media only screen and (max-width: 600px) {
+  #analysis {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px auto 3.9fr 1fr auto;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "header"
+      "data"
+      "graph"
+      "config"
+      "buttons";
+  }
+
+  #mynetwork {
+    max-height: 40vh;
+  }
+
+  .buttons {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px
+  }
 }
 </style>

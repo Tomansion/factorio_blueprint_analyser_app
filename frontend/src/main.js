@@ -34,7 +34,14 @@ import Menubar from 'primevue/menubar';
 app.component("p-menubar", Menubar)
 import ToastService from 'primevue/toastservice';
 app.use(ToastService);
+import Slider from 'primevue/slider';
+app.component("p-slider", Slider)
 
+// import Image from 'primevue/image';
+// app.component("p-image", Image)
+
+// Main CSS
+import './assets/css/main.css'
 
 // Mount the app
 app.mount('#app')

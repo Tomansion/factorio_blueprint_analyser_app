@@ -2,42 +2,37 @@
   <div id="blueprintUpload">
     <ParametersSelection @update="parametersUpdate" />
     <FileUpload @analyse="startAnalysis" />
+    <BlueprintExemples @analyse="blueprintSelected" />
+    <AppFooter />
+
     <p-progressspinner
       v-if="loading"
       id="loading"
-      style="width:50px;height:50px"
-      strokeWidth="8"
-      fill="var(--surface-ground)"
-      animationDuration="1s"
-      color="var(--primary)"
-      stroke="#0057e7"
+      style="width:120px;height:120px"
+      strokeWidth="10"
+      color="#FF9800"
     />
-    <p-card style="width:60%;overflow-wrap: anywhere;">
-      <template #title>
-        Example
-      </template>
-      <template #content>
-        <textarea
-          style="width: 100%;height: 150px;">0eNqdlVFuwyAMhu/iZ6hCGkKTA+wS0zSR1GqREhIB3VZVufugkbZqTTroI0b+/Bv48QWa7oSjUdpBfQHVDtpC/XoBqw5adiHmziNCDcphDwS07MNKWot90yl9oL1sj0ojZTARUHqPX1CzifyLcEZqOw7G0QY7d5OcT28EUDvlFM5irovzuz71DRpPX2MQGAfr0wYdqgYdG07gDDWtthvuK+yVwXbez4PEP+A8GpylgbdPgHMPXkAV0ahtmkYeDc7TwGU0mKeBRTS4SAPvfsBKWzTOx+6Q4r+LqqLViXV1xQKYZdHkMq1vFu8s+vtQsyj0M95iyyfLnrFTtsIqIu6arfdaLjH543/ygVNnvqer+cc0g6YHlIZ+HhE7WCpWRjTAExsQiQ2ItQbuPvn7WjFmqxL1x3uPsbR3nMebjz20iJ9x13lY30xgAp30rBDzxBfZhqP+QGPnnB0rRJULzouCi/Jm2u6mb9CYh4M=</textarea>
-      </template>
-    </p-card>
+
   </div>
 </template>
 
 <script>
 import FileUpload from './fileUpload.vue'
 import ParametersSelection from './parametersSelection.vue'
+import BlueprintExemples from './blueprintExemples.vue'
+import AppFooter from './appFooter.vue'
+
 import axios from 'axios'
 import { analysisStore } from '@/stores/analysis'
 
 export default {
   components: {
-    ParametersSelection, FileUpload
+    ParametersSelection, FileUpload, BlueprintExemples, AppFooter
   },
   data() {
     return {
-      inserterCapacity: 0,
-      parameters: { inserterCapacity: 1 },
+      inserterCapacityBonus: 0,
+      parameters: { inserterCapacityBonus: 1 },
       loading: false,
     }
   },
@@ -65,35 +60,27 @@ export default {
         })
     },
     parametersUpdate(parameters) {
-      console.log(parameters, "parameters");
       this.parameters = { ...parameters };
-    }
+    },
+    blueprintSelected(blueprint) {
+      this.startAnalysis(blueprint)
+    },
+
   }
 }
 </script>
 
 <style scoped>
 #blueprintUpload {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-}
-
-.uploadCard {}
-
-#analyse {
-  margin-top: 1em;
-}
-
-#uploadContent {
-  display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 #loading {
   position: absolute;
-  top: 80%;
+  top: 50%;
 }
 </style>
