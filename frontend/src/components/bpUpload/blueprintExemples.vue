@@ -69,6 +69,10 @@ export default {
           name: "Module factory",
           id: "Module_factory"
         },
+        {
+          name: "Inserter factory",
+          id: "Inserters_factory"
+        },
       ]
     }
   },
@@ -103,9 +107,6 @@ export default {
 </script>
 
 <style scoped>
-#blueprintExemples {
-}
-
 #blueprintExemplesContainer {
   display: flex;
   gap: 20px;
@@ -116,7 +117,7 @@ export default {
 }
 
 .blueprintBtn {
-  height: 50px;
+  height: 45px;
 }
 
 

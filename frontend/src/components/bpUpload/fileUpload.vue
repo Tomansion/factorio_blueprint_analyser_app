@@ -37,7 +37,7 @@
       </div>
     </div>
     <button
-      id="analyse"
+      id="analyseBtn"
       class="arrowBtn"
       :disabled="uploadedBlueprint === '' && pastedBlueprint === ''"
       @click="analyseBlueprint"
@@ -122,7 +122,9 @@ export default {
   margin-left: 40px;
 }
 
-#analyse {
+#analyseBtn {
   margin-top: 10px;
+  align-self: flex-end;
+  min-width: 200px;
 }
 </style>

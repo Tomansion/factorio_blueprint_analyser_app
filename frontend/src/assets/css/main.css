@@ -27,7 +27,6 @@
 /* Main btn */
 .mainBtn {
   cursor: pointer;
-  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -8,13 +8,11 @@
 
     <div id="content">
       <div class="list">
-        The Factorio blueprint analyser is a tool to help you find the bottleneck in a supplychain.<br>
-        <br>
+        The Factorio blueprint analyser is a tool to help you find the bottleneck in a supplychain with a flow simulation.<br>
         This Web application was made to demonstrate the <a
           href="https://github.com/Tomansion/factorio_blueprint_analyser"
           target="_blank"
         >Factorio blueprint analyser algorithm</a> that was created for AI assisted base building purpose.<br>
-
       </div>
       <h2>Features </h2>
 

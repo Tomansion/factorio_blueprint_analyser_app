@@ -102,17 +102,6 @@ export default {
   padding-left: 20px;
 }
 
-.parameter .title h2 {
-  padding: 0;
-  margin: 0;
-  color: orange;
-}
-
-.parameter .title a {
-  text-decoration: underline;
-  color: white;
-}
-
 /* Slider  */
 #slider {
   flex: 1;
@@ -123,7 +112,7 @@ export default {
 }
 
 #slider #p-slider {
-  padding: 0 23px 0 23px;
+  padding: 0 38px 0 38px;
 }
 
 #slider #values {
@@ -146,8 +135,8 @@ export default {
 
 #slider .p-slider {
   background-color: rgb(51, 47, 68);
-  border-radius: 30px;
   height: 0.9em;
+  border-radius: 3px;
 }
 </style> 
 
@@ -164,5 +153,6 @@ export default {
   width: 1.8em;
   margin-top: -0.915rem;
   margin-left: -0.915rem;
+  border-radius: 5px;
 }
 </style> 
