@@ -113,7 +113,7 @@
         <button
           class="mainBtn"
           @click="downloadObjectAsJson(analysedBlueprint, 'analysed_blueprint')"
-        >📥 Export Json</button>
+        >📥 Export JSON</button>
       </div>
       <div id="menuEnd">
         {{ version }}

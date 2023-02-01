@@ -36,7 +36,7 @@
             <li>Usage of the entity in percentage</li>
             <li>Bottleneck identification</li>
           </ul>
-          <li>Json results export</li>
+          <li>JSON results export</li>
         </ul>
       </div>
 
@@ -44,7 +44,7 @@
       <div class="list">
         Begin by pasting your blueprint in the text area or upload your blueprint file.<br>
         Then click on the "Analyse" button.<br>
-        The aglogirth results will be displayed on a new page.<br>
+        The algorithm results will be displayed on a new page.<br>
         <br>
         You can also select one of the example blueprint to test the application.<br>
       </div>
@@ -71,11 +71,11 @@
 
         To know more about the project:
         <ul>
-          <li>Watch my intership final presentation on
-            <a href="https://youtu.be/q2Bx-8wbsvk?t=2162">Youtube</a>
+          <li>Watch my internship final presentation on
+            <a href="https://youtu.be/q2Bx-8wbsvk?t=2162">YouTube</a>
           </li>
           <li>Watch The Factory Must Grow: Automation in Factorio presentation on
-            <a href="https://www.youtube.com/watch?v=9ie01GLGB5s">Youtube</a>
+            <a href="https://www.youtube.com/watch?v=9ie01GLGB5s">YouTube</a>
           </li>
           <li>
             Join the AI in Factorio

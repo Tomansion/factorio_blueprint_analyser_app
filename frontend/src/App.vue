@@ -27,6 +27,7 @@ html,
   font-family: "Titillium_Web", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
 }
 
 a {
