@@ -1,5 +1,11 @@
 # factorio_blueprint_analyser_app
 
+Dashboard to analyse Factorio blueprints. Demonstration of the [factorio-blueprint-analyser algorithm library](https://github.com/Tomansion/factorio_blueprint_analyser).
+
+Live demo: https://factorio-blueprint-analysis.tomansion.fr/ !
+
+
+
 ## Project setup
 ```
 npm install
@@ -14,11 +20,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
