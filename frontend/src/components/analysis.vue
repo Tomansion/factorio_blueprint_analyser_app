@@ -105,7 +105,7 @@
           class="mainBtn"
           @click="newIssue"
           title="Report an issue"
-        >😥 Did something went wrong?</button>
+        >😥 has something gone wrong?</button>
         <button
           class="mainBtn"
           @click="copyResults()"
