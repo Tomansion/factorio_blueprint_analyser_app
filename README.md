@@ -5,18 +5,20 @@ Dashboard to analyse Factorio blueprints. Demonstration of the [factorio-bluepri
 Live demo: https://factorio-blueprint-analysis.tomansion.fr/ !
 
 
-
 ## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
+Frontend is a Vue.js project. Backend is a Python project.
+
+### Frontend
 ```
+cd frontend
+npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Backend
 ```
-npm run build
+cd backend
+pip install -r requirements.txt
+python3 websrv.py
 ```
