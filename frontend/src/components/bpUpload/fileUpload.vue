@@ -13,7 +13,7 @@
       >
         <textarea
           id="pasteArea"
-          placeholder="Paste your Json or encoded blueprint here"
+          placeholder="Paste your JSON or encoded blueprint here"
           v-model="pastedBlueprint"
           @change="uploadedBlueprint = ''"
         />
@@ -31,7 +31,7 @@
           name="demo[]"
           :customUpload="true"
           @select="myUploader"
-          chooseLabel="Upload your Json or text file"
+          chooseLabel="Upload your JSON or text file"
           :maxFileSize="1000000"
         />
       </div>
