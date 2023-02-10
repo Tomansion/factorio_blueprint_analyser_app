@@ -3,6 +3,22 @@
   --primary: #313031;
   --secondary: #252223;
   --tertiary: #8e8e8e;
+
+  /* Basics */
+  --info: #17a2b8;
+  --infoDark: #0d6a79;
+  --blank: #343a40;
+  --blankDark: #6c757d;
+  --success: #28a745;
+  --successDark: #196b2c;
+  --warning: #ffc107;
+  --warningDark: #c59400;
+  --danger: #dc3545;
+  --dangerDark: #a82734;
+  --dark: #343a40;
+  --darkDark: #6c757d;
+  --purple: rgb(204, 73, 193);
+  --purpleDark: rgb(161, 16, 161);
 }
 
 /* Pannel */
@@ -62,6 +78,12 @@
 .mainBtn:active {
   box-shadow: inset 0px 2px 1px 0px #292929;
 }
+
+.mainBtn.red {
+  background: #ff6363;
+  box-shadow: inset 0px 2px 1px 0px #a2691a;
+}
+
 
 /* Main btn list */
 .list {

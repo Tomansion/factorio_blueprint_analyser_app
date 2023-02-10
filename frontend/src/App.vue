@@ -1,12 +1,21 @@
 <template>
-  <router-view />
+  <div id="app">
+    <appMessenger />
+    <appLoading />
+    <router-view />
+  </div>
 </template>
 
 <script>
+import appMessenger from "./components/utils/appMessenger.vue";
+import appLoading from "./components/utils/appLoading";
 
 export default {
-  name: 'App',
-  components: { }
+  name: "App",
+  components: {
+    appMessenger,
+    appLoading,
+  },
 }
 </script>
 <style>

@@ -218,7 +218,7 @@ function getHoverLabel(node, blueprint) {
     const entityNumber = node.split("/")[0];
     const itemName = node.split("/")[2];
     const entity = blueprint.entities.find(entity => entity.entity_number == entityNumber);
-    const transportedItemsPerSecond = entity.transpoted_items[itemName];
+    const transportedItemsPerSecond = beautifulNumber(entity.transpoted_items[itemName]);
     return itemName + " : " + transportedItemsPerSecond + " items/s";
   }
 
@@ -230,12 +230,24 @@ function getHoverLabel(node, blueprint) {
 
   const entityNumber = node;
   const entity = blueprint.entities.find(entity => entity.entity_number == entityNumber);
-  if (entity.usage_rate) return "Use rate :\n " + (entity.usage_rate * 100) + "%";
+  if (entity.usage_rate) return "Use rate :\n " + beautifulNumber(entity.usage_rate * 100) + "%";
   else return entity.name;
+}
+
+function beautifulNumber(number) {
+  // Reduce number with a lot of decimals to a more readable format
+  // 2.2666666666666666 => 2.27
+  if (number == 0) return 0
+  if (number < 0.001) return number.toFixed(6);
+  if (number < 0.01) return number.toFixed(5);
+  if (number < 0.1) return number.toFixed(4);
+  if (number < 10) return number.toFixed(1);
+  return Math.round(number);
 }
 
 export default {
   getAnalysedBlueprintNetwork,
   getHoverLabel,
-  nameToImageName
+  nameToImageName,
+  beautifulNumber
 }

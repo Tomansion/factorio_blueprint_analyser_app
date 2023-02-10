@@ -9,5 +9,10 @@ app.use(router)
 // Main CSS
 import './assets/css/main.css'
 
+// pinia Store 
+import { createPinia } from 'pinia'
+const pinia = createPinia()
+app.use(pinia)
+
 // Mount the app
 app.mount('#app')

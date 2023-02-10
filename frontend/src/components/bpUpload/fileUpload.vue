@@ -123,12 +123,6 @@ export default {
 }
 
 /* Upload button style */
-#upload {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
 #upload input {
   display: none;
 }
@@ -144,22 +138,17 @@ export default {
   color: black;
   font-weight: bolder;
   cursor: pointer;
+  gap:40px;
 }
 
 #upload label:hover {
   background-color: orange;
 }
 
-#upload .uploadIcon {
-  margin-right: 30px;
-}
-
-
-
 /* Analyse button style */
 #analyseBtn {
   margin-top: 10px;
   align-self: flex-end;
-  min-width: 200px;
+  min-width: 250px;
 }
 </style>

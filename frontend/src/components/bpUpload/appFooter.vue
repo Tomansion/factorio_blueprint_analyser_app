@@ -16,9 +16,10 @@
     <button
       id="github"
       icon="pi pi-github"
-      class="button-secondary"
+      class="mainBtn"
       @click="openGithub"
     >
+      <img src="https://img.icons8.com/windows/32/null/github.png" />
     </button>
   </div>
 
@@ -50,9 +51,14 @@ export default {
   padding: 5px 5px 5px 20px;
 }
 
-#version {}
+#version {
+  font-weight: bolder;
+  color: rgba(211, 211, 211, 0.533);
+}
 
 #github {
+  padding: 4px;
   margin-left: 20px;
+  border-radius: 5px;
 }
 </style>

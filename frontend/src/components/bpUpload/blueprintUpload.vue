@@ -38,23 +38,31 @@ export default {
   },
   methods: {
     startAnalysis(blueprint) {
+      const store = analysisStore();
       this.loading = true
       axios.post('analysis', { blueprint: blueprint, parameters: this.parameters })
         .then((response) => {
           // Analysis successfull !
           // Save the analysed blueprint in the store
-          analysisStore.analysedBlueprint = response.data
+          store.analysedBlueprint = response.data
           // Save the parameters used for the analysis
-          analysisStore.parameters = this.parameters
+          store.parameters = this.parameters
           // Redirect to the analysis page
           this.$router.push({ name: 'AnalysisPage' })
         }).catch((error) => {
           // Analysis failed
           console.log(error);
-          // if (error.response && "error" in error.response.data)
-          //   this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: error.response.data.error, life: 3000 });
-          // else
-          //   this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: "Unknown error", life: 3000 });
+          if (error.response && "error" in error.response.data)
+            store.sendMessage({
+              title: "error",
+              msg: error.response.data.error,
+            })
+          else
+            store.sendMessage({
+              title: "error",
+              msg: "Unknown error, please create an issue on the github repository"
+            })
+
         }).finally(() => {
           this.loading = false
         })
