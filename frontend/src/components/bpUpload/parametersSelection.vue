@@ -123,6 +123,7 @@ export default {
   width: 91%;
   border-radius: 30px;
   background-color: rgb(140, 91, 0);
+  height: 10px;
 }
 
 #slider #rangeSlider input::-webkit-slider-thumb {
