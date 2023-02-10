@@ -4,15 +4,6 @@
     <FileUpload @analyse="startAnalysis" />
     <BlueprintExemples @analyse="blueprintSelected" />
     <AppFooter />
-
-    <!-- <progressspinner
-      v-if="loading"
-      id="loading"
-      style="width:120px;height:120px"
-      strokeWidth="10"
-      color="#FF9800"
-    /> -->
-
   </div>
 </template>
 
@@ -33,13 +24,12 @@ export default {
     return {
       inserterCapacityBonus: 0,
       parameters: { inserterCapacityBonus: 1 },
-      loading: false,
     }
   },
   methods: {
     startAnalysis(blueprint) {
       const store = analysisStore();
-      this.loading = true
+      store.isLoading = true
       axios.post('analysis', { blueprint: blueprint, parameters: this.parameters })
         .then((response) => {
           // Analysis successfull !
@@ -64,7 +54,7 @@ export default {
             })
 
         }).finally(() => {
-          this.loading = false
+          store.isLoading = false
         })
     },
     parametersUpdate(parameters) {

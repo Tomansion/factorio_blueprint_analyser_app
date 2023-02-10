@@ -1,32 +1,16 @@
 <template>
   <div id="loading">
-    <!-- Displaying the current requests -->
-    <transition-group
-      id="list"
-      name="list"
-      tag="p"
-    >
+    <Transition>
       <div
         class="request"
-        v-for="req in requests"
-        :key="req.code"
+        v-if="isLoading"
       >
         <div class="top">
-          <div class="name">{{ req.name }}</div>
+          <div class="name">Loading</div>
           <div class="loader" />
         </div>
-        <!-- Display the progress bar if anny -->
-        <div
-          class="progress"
-          v-if="req.progress !== undefined"
-        >
-          <div
-            class="bar"
-            :style="'width:' + req.progress * 100 + '%'"
-          ></div>
-        </div>
       </div>
-    </transition-group>
+    </Transition>
   </div>
 </template>
 
@@ -45,8 +29,9 @@ export default {
     },
   },
   computed: {
-    requests() {
-      return analysisStore.requests;
+    isLoading() {
+      const store = analysisStore();
+      return store.isLoading;
     },
   },
 };
@@ -62,14 +47,6 @@ export default {
   overflow: hidden;
 }
 
-#list {
-  margin-bottom: 0px;
-  margin-bottom: 0px;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: flex-end;
-}
-
 /* requests */
 .request {
   display: flex;
@@ -80,7 +57,6 @@ export default {
   padding: 4px;
   color: #fff;
   background-color: var(--info);
-  border-radius: 5px;
   transition: all 0.1s;
 
   overflow: hidden;
@@ -106,7 +82,7 @@ export default {
   border-radius: 100%;
   width: 10px;
   height: 10px;
-  animation: spin 6s linear infinite;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -119,34 +95,14 @@ export default {
   }
 }
 
-.request .progress {
-  height: 4px;
-  min-width: 200px;
-  margin-top: 3px;
-  border: 2px solid #f3f3f3;
-  /* Light grey */
-  border-radius: 5px;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
 }
 
-.request .progress .bar {
-  /* width: 30%; */
-  height: 100%;
-  background-color: #cfecff;
-  transition: width 0.5s ease-in-out;
-}
-
-/* Trasitions */
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.2s;
-}
-
-.list-enter,
-.list-leave-to
-
-/* .list-leave-active below version 2.1.8 */
-  {
+.v-enter-from,
+.v-leave-to {
   opacity: 0;
-  transform: translateY(30px);
 }
+
 </style>

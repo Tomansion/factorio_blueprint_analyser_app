@@ -40,6 +40,7 @@
             id="analyseBtn"
             class="arrowBtn"
             @click="startAnalysis"
+            :disabled="isLoading"
           >Analyse</button>
         </div>
       </div>
@@ -107,7 +108,13 @@ export default {
       const bpId = this.exempleBlueprints[this.selectedExempleIndex].id;
       window.open(`./blueprintExemples/${bpId}.png`, '_blank').focus();
     }
-  }
+  },
+  computed: {
+    isLoading() {
+      const store = analysisStore();
+      return store.isLoading;
+    },
+  },
 }
 </script>
 

@@ -57,7 +57,7 @@
     <button
       id="analyseBtn"
       class="arrowBtn"
-      :disabled="uploadedBlueprint === '' && pastedBlueprint === ''"
+      :disabled="(uploadedBlueprint === '' && pastedBlueprint === '') || isLoading"
       @click="analyseBlueprint"
     >Analyse</button>
   </div>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import { analysisStore } from '@/stores/analysis'
 export default {
   data() {
     return {
@@ -90,7 +91,13 @@ export default {
       if (this.uploadedBlueprint !== '') this.$emit('analyse', this.uploadedBlueprint)
       if (this.pastedBlueprint !== '') this.$emit('analyse', this.pastedBlueprint)
     }
-  }
+  },
+  computed: {
+    isLoading() {
+      const store = analysisStore();
+      return store.isLoading;
+    },
+  },
 }
 </script>
 
@@ -138,7 +145,7 @@ export default {
   color: black;
   font-weight: bolder;
   cursor: pointer;
-  gap:40px;
+  gap: 40px;
 }
 
 #upload label:hover {

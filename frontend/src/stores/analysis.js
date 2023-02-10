@@ -6,15 +6,12 @@ export const analysisStore = defineStore('counter', {
       analysedBlueprint: null,
       parameters: null,
 
-      isLoadding: false,
+      isLoading: false,
       messages: [], // List of messages for the user
       requests: [], // List of messages for the user
     }
   },
   actions: {
-    setLoading(val) {
-      this.isLoadding = val
-    },
     // message
     sendMessage(msg) {
       msg.id = Math.random()
