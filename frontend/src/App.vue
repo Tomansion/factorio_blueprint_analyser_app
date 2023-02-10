@@ -1,14 +1,12 @@
 <template>
-  <Toast position="bottom-center" />
   <router-view />
 </template>
 
 <script>
-import Toast from 'primevue/toast';
 
 export default {
   name: 'App',
-  components: { Toast }
+  components: { }
 }
 </script>
 <style>
@@ -28,6 +26,7 @@ html,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
+  background: #1c1b22;
 }
 
 a {

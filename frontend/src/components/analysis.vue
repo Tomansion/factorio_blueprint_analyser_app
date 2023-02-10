@@ -117,13 +117,13 @@
       </div>
       <div id="menuEnd">
         {{ version }}
-        <p-button
+        <button
           id="github"
-          icon="pi pi-github"
-          class="p-button-secondary"
+          class="mainBtn"
           @click="openGithub"
         >
-        </p-button>
+          <i class="github"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -279,7 +279,7 @@ export default {
     copyResults() {
       const text = JSON.stringify(this.analysedBlueprint, null, 2);
       navigator.clipboard.writeText(text);
-      this.$toast.add({ severity: 'success', summary: 'Results copied', detail: "The blueprint results has been copied to your clipboard", life: 3000 });
+      // this.$toast.add({ severity: 'success', summary: 'Results copied', detail: "The blueprint results has been copied to your clipboard", life: 3000 });
     },
   },
 }

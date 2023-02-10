@@ -13,13 +13,13 @@
     <div id="version">
       {{ version }}
     </div>
-    <p-button
+    <button
       id="github"
       icon="pi pi-github"
-      class="p-button-secondary"
+      class="button-secondary"
       @click="openGithub"
     >
-    </p-button>
+    </button>
   </div>
 
 </template>

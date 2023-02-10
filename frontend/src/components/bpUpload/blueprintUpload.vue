@@ -5,13 +5,13 @@
     <BlueprintExemples @analyse="blueprintSelected" />
     <AppFooter />
 
-    <p-progressspinner
+    <!-- <progressspinner
       v-if="loading"
       id="loading"
       style="width:120px;height:120px"
       strokeWidth="10"
       color="#FF9800"
-    />
+    /> -->
 
   </div>
 </template>
@@ -51,10 +51,10 @@ export default {
         }).catch((error) => {
           // Analysis failed
           console.log(error);
-          if (error.response && "error" in error.response.data)
-            this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: error.response.data.error, life: 3000 });
-          else
-            this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: "Unknown error", life: 3000 });
+          // if (error.response && "error" in error.response.data)
+          //   this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: error.response.data.error, life: 3000 });
+          // else
+          //   this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: "Unknown error", life: 3000 });
         }).finally(() => {
           this.loading = false
         })

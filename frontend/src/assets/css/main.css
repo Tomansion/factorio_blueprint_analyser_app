@@ -128,3 +128,9 @@
   box-shadow: inset 0px 2px 2px 0px #292929;
   cursor: default;
 }
+
+/* Icons */
+i #github {
+  color: #000000;
+  background-image: url("https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png");
+}

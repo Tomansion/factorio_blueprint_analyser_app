@@ -20,11 +20,27 @@
       </div>
 
       <!-- Blueprint upload -->
-      <div
+      <form
+        id="upload"
+        class="method"
+        @submit.prevent="analyseBlueprint"
+      >
+        <input
+          type="file"
+          id="file"
+          @change="myUploader"
+          accept=".txt,.json"
+        />
+        <label
+          for="file"
+          class="mainBtn"
+        >Upload your JSON or text file</label>
+      </form>
+
+      <!-- <div
         id="upload"
         class="method"
       >
-        <!-- <p>Encoded text and JSON files are supported </p> -->
         <p-fileupload
           class="mainBtn"
           mode="basic"
@@ -34,7 +50,7 @@
           chooseLabel="Upload your JSON or text file"
           :maxFileSize="1000000"
         />
-      </div>
+      </div> -->
     </div>
     <button
       id="analyseBtn"
@@ -78,6 +94,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 #methods {
   display: flex;
   gap: 20px;
@@ -106,17 +123,17 @@ export default {
   padding: 5px;
 }
 
-.p-fileupload .p-button {
+.p-fileupload .button {
   height: 100%;
   width: 100%;
 }
 
-.p-fileupload .p-button .p-button-icon {
+.p-fileupload .button .button-icon {
   transform: scale(2);
   translate: 150%;
 }
 
-.p-fileupload .p-button-label {
+.p-fileupload .button-label {
   font-size: 1.2em;
   font-weight: bold;
   margin-left: 40px;

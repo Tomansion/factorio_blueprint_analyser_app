@@ -95,7 +95,7 @@ export default {
           // Copy the blueprint to the clipboard
           navigator.clipboard.writeText(data);
           // Display a toast
-          this.$toast.add({ severity: 'success', summary: 'Blueprint copied', detail: "The blueprint has been copied to your clipboard", life: 3000 });
+          // this.$toast.add({ severity: 'success', summary: 'Blueprint copied', detail: "The blueprint has been copied to your clipboard", life: 3000 });
         });
     },
     zoomOnImage() {
