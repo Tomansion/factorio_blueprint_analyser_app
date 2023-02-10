@@ -27,8 +27,9 @@
         </div>
 
         <div id="slider">
-          <div id="p-slider">
-            <p-slider
+          <div id="rangeSlider">
+            <input
+              type="range"
               v-model="inserterCapacityBonus"
               :step="1"
               :min="inserterCapacityOptions[0]"
@@ -106,12 +107,41 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  padding-top: 20px;
+  gap: 15px;
+  padding-top: 10px;
 }
 
-#slider #p-slider {
-  padding: 0 38px 0 38px;
+#slider #rangeSlider {
+  text-align: center;
+}
+
+#slider #rangeSlider input {
+  cursor: pointer;
+  /* Cursor on hover */
+  -webkit-appearance: none;
+  appearance: none;
+  width: 91%;
+  border-radius: 30px;
+  background-color: rgb(140, 91, 0);
+  height: 10px;
+}
+
+#slider #rangeSlider input::-webkit-slider-thumb {
+  width: 25px;
+  height: 25px;
+  background-color: orange;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0 0 10px 10px #ffffff07;
+}
+
+#slider #rangeSlider input::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background-color: orange;
+  border-radius: 30px;
+  border: none;
+  box-shadow: 0 0 10px 10px #ffffff07;
 }
 
 #slider #values {
@@ -130,28 +160,5 @@ export default {
 #slider #values .selected {
   color: orange;
   font-weight: bold;
-}
-
-#slider .p-slider {
-  background-color: rgb(51, 47, 68);
-  height: 0.9em;
-  border-radius: 3px;
-}
-</style> 
-
-<style>
-#slider .p-slider-range {
-  background-color: rgb(140, 91, 0);
-  border-radius: 30px;
-}
-
-#slider .p-slider .p-slider-handle {
-  background-color: orange;
-  border: none;
-  height: 1.8em;
-  width: 1.8em;
-  margin-top: -0.915rem;
-  margin-left: -0.915rem;
-  border-radius: 5px;
 }
 </style> 

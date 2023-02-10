@@ -40,6 +40,7 @@
             id="analyseBtn"
             class="arrowBtn"
             @click="startAnalysis"
+            :disabled="isLoading"
           >Analyse</button>
         </div>
       </div>
@@ -48,6 +49,7 @@
 </template>
 
 <script>
+import { analysisStore } from '@/stores/analysis'
 export default {
   data() {
     return {
@@ -94,15 +96,25 @@ export default {
         .then(data => {
           // Copy the blueprint to the clipboard
           navigator.clipboard.writeText(data);
-          // Display a toast
-          this.$toast.add({ severity: 'success', summary: 'Blueprint copied', detail: "The blueprint has been copied to your clipboard", life: 3000 });
+
+          const store = analysisStore()
+          store.sendMessage({
+            title: "success",
+            msg: "Blueprint copied to clipboard"
+          })
         });
     },
     zoomOnImage() {
       const bpId = this.exempleBlueprints[this.selectedExempleIndex].id;
       window.open(`./blueprintExemples/${bpId}.png`, '_blank').focus();
     }
-  }
+  },
+  computed: {
+    isLoading() {
+      const store = analysisStore();
+      return store.isLoading;
+    },
+  },
 }
 </script>
 

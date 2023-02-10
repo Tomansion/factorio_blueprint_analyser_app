@@ -4,15 +4,6 @@
     <FileUpload @analyse="startAnalysis" />
     <BlueprintExemples @analyse="blueprintSelected" />
     <AppFooter />
-
-    <p-progressspinner
-      v-if="loading"
-      id="loading"
-      style="width:120px;height:120px"
-      strokeWidth="10"
-      color="#FF9800"
-    />
-
   </div>
 </template>
 
@@ -33,30 +24,37 @@ export default {
     return {
       inserterCapacityBonus: 0,
       parameters: { inserterCapacityBonus: 1 },
-      loading: false,
     }
   },
   methods: {
     startAnalysis(blueprint) {
-      this.loading = true
+      const store = analysisStore();
+      store.isLoading = true
       axios.post('analysis', { blueprint: blueprint, parameters: this.parameters })
         .then((response) => {
           // Analysis successfull !
           // Save the analysed blueprint in the store
-          analysisStore.analysedBlueprint = response.data
+          store.analysedBlueprint = response.data
           // Save the parameters used for the analysis
-          analysisStore.parameters = this.parameters
+          store.parameters = this.parameters
           // Redirect to the analysis page
           this.$router.push({ name: 'AnalysisPage' })
         }).catch((error) => {
           // Analysis failed
           console.log(error);
           if (error.response && "error" in error.response.data)
-            this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: error.response.data.error, life: 3000 });
+            store.sendMessage({
+              title: "error",
+              msg: error.response.data.error,
+            })
           else
-            this.$toast.add({ severity: 'error', summary: 'Analysis error', detail: "Unknown error", life: 3000 });
+            store.sendMessage({
+              title: "error",
+              msg: "Unknown error, please create an issue on the github repository"
+            })
+
         }).finally(() => {
-          this.loading = false
+          store.isLoading = false
         })
     },
     parametersUpdate(parameters) {

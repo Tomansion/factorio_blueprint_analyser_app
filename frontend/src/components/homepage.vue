@@ -25,9 +25,9 @@ export default {
 
 <style scoped>
 #homepage {
-  height: 100vh;
+  height: 96vh;
   display: flex;
-  padding: 30px;
+  padding: 2vh;
   gap: 40px;
 }
 

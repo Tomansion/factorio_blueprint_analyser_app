@@ -22,6 +22,15 @@
             {{ analysedBlueprint.blueprint.label }}
           </b>
         </div>
+        <!-- icons -->
+        <div id="blueprintIcons">
+          <img
+            class="icon"
+            v-for="(icon, i) in analysedBlueprint.blueprint.icons"
+            :key="i"
+            :src="itemNameToIcon(icon.signal.name)"
+          />
+        </div>
         <!-- description -->
         <div
           id="blueprintDescription"
@@ -29,17 +38,6 @@
         >
           <u>Description:</u>
           {{ analysedBlueprint.blueprint.description }}
-        </div>
-        <!-- icons -->
-        <div id="blueprintIcons">
-          <u>Icons:</u>
-          <br>
-          <img
-            class="icon"
-            v-for="(icon, i) in analysedBlueprint.blueprint.icons"
-            :key="i"
-            :src="itemNameToIcon(icon.signal.name)"
-          />
         </div>
         <!-- Consumed items -->
         <div
@@ -53,7 +51,7 @@
             v-for="(item, i) in Object.keys(analysedBlueprint.blueprint.items_input)"
             :key="i"
           >
-            {{ item }}: <b>{{ analysedBlueprint.blueprint.items_input[item] }}/s</b>
+            {{ item }}: <b>{{ beautifulNumber(analysedBlueprint.blueprint.items_input[item]) }}/s</b>
           </div>
         </div>
         <!-- Produced items -->
@@ -68,7 +66,7 @@
             v-for="(item, i) in Object.keys(analysedBlueprint.blueprint.items_output)"
             :key="i"
           >
-            {{ item }}: <b>{{ analysedBlueprint.blueprint.items_output[item] }}/s</b>
+            {{ item }}: <b>{{ beautifulNumber(analysedBlueprint.blueprint.items_output[item]) }}/s</b>
           </div>
         </div>
       </div>
@@ -99,31 +97,34 @@
     </div>
 
     <!-- Buttons -->
-    <div class="buttons pannel">
+    <div
+      id="buttonsPannel"
+      class="buttons pannel"
+    >
       <div id="buttons">
         <button
-          class="mainBtn"
+          class="mainBtn red"
           @click="newIssue"
           title="Report an issue"
-        >😥 has something gone wrong?</button>
+        >has something gone wrong?</button>
         <button
           class="mainBtn"
           @click="copyResults()"
-        >📋 Copy results</button>
+        >Copy results</button>
         <button
           class="mainBtn"
           @click="downloadObjectAsJson(analysedBlueprint, 'analysed_blueprint')"
-        >📥 Export JSON</button>
+        >Download results</button>
       </div>
       <div id="menuEnd">
         {{ version }}
-        <p-button
+        <button
           id="github"
-          icon="pi pi-github"
-          class="p-button-secondary"
+          class="mainBtn"
           @click="openGithub"
         >
-        </p-button>
+          <img src="https://img.icons8.com/windows/32/null/github.png" />
+        </button>
       </div>
     </div>
   </div>
@@ -147,8 +148,9 @@ export default {
     }
   },
   mounted() {
-    this.analysedBlueprint = analysisStore.analysedBlueprint
-    this.parameters = analysisStore.parameters
+    const store = analysisStore()
+    this.analysedBlueprint = store.analysedBlueprint
+    this.parameters = store.parameters
     if (
       !this.analysedBlueprint ||
       !this.analysedBlueprint.blueprint
@@ -279,7 +281,15 @@ export default {
     copyResults() {
       const text = JSON.stringify(this.analysedBlueprint, null, 2);
       navigator.clipboard.writeText(text);
-      this.$toast.add({ severity: 'success', summary: 'Results copied', detail: "The blueprint results has been copied to your clipboard", life: 3000 });
+
+      const store = analysisStore()
+      store.sendMessage({
+        title: "success",
+        msg: "Results copied to clipboard"
+      })
+    },
+    beautifulNumber(number) {
+      return ansUtil.beautifulNumber(number)
     },
   },
 }
@@ -288,7 +298,7 @@ export default {
 <style scoped>
 .pannel {
   margin: 7px;
-  padding: 9px;
+  padding: 10px;
 }
 
 #analysis {
@@ -312,6 +322,7 @@ export default {
   display: flex;
   align-items: stretch;
   gap: 30px;
+  padding: 6px;
 }
 
 .header h1 {
@@ -377,8 +388,19 @@ export default {
   flex-wrap: wrap;
 }
 
+#buttonsPannel {
+  padding: 5px;
+}
+
 .buttons button {
   min-height: 40px;
+  margin: 0;
+}
+
+#github {
+  padding: 4px;
+  margin-left: 20px;
+  border-radius: 5px;
 }
 
 /* Grid for small screens */

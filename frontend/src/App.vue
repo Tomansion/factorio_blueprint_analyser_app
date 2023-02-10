@@ -1,14 +1,21 @@
 <template>
-  <Toast position="bottom-center" />
-  <router-view />
+  <div id="app">
+    <appMessenger />
+    <appLoading />
+    <router-view />
+  </div>
 </template>
 
 <script>
-import Toast from 'primevue/toast';
+import appMessenger from "./components/utils/appMessenger.vue";
+import appLoading from "./components/utils/appLoading";
 
 export default {
-  name: 'App',
-  components: { Toast }
+  name: "App",
+  components: {
+    appMessenger,
+    appLoading,
+  },
 }
 </script>
 <style>
@@ -28,6 +35,7 @@ html,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
+  background: #1c1b22;
 }
 
 a {
