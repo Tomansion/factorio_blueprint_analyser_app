@@ -9,7 +9,7 @@ DEV_FRONTEND_URL = "http://localhost:8080/"
 BACK_PORT = 3000
 
 app = connexion.App(__name__)
-app.add_api('swagger.yaml', strict_validation=True)
+app.add_api('swagger.yaml', strict_validation=False, validate_responses=False)
 CORS(app.app)
 
 

@@ -42,7 +42,7 @@ export default {
         }).catch((error) => {
           // Analysis failed
           console.log(error);
-          if (error.response && "error" in error.response.data)
+          if (error.response && error.response.data && error.response.data.error)
             store.sendMessage({
               title: "error",
               msg: error.response.data.error,
