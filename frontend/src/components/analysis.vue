@@ -154,6 +154,7 @@ import { Network } from "vis-network";
 import { DataSet } from "vis-data";
 import ansUtil from './analysis/analysis.js'
 import packageJson from "../../package.json";
+import axios from 'axios'
 
 export default {
   name: 'analysis-page',
@@ -184,8 +185,12 @@ export default {
   },
   methods: {
     createGraph() {
-      // Create a vis-network graph
       const container = document.getElementById("mynetwork");
+      // Remove old graph
+      container.innerHTML = "";
+      this.entitiesToRemove = [];
+
+      // Create a vis-network graph
       const { nodes, edges } = ansUtil.getAnalysedBlueprintNetwork(this.analysedBlueprint.blueprint);
 
       const nodesDataset = new DataSet(nodes);
@@ -308,22 +313,22 @@ export default {
         if (e.nodes[0].includes("legend")) return
         if (e.nodes[0].includes("recipe")) return
         if (e.nodes[0].includes("transported")) return
-        console.log(e.nodes[0]);
         const node = nodesDataset.get(e.nodes[0]);
+        const nodeNumber = parseInt(e.nodes[0])
         if (node.selected) {
           nodesDataset.update({
             id: e.nodes[0],
             selected: false,
             opacity: 1,
           });
-          this.entitiesToRemove = this.entitiesToRemove.filter((entity) => entity !== e.nodes[0]);
+          this.entitiesToRemove = this.entitiesToRemove.filter((entity) => entity !== nodeNumber);
         } else {
           nodesDataset.update({
             id: e.nodes[0],
             selected: true,
             opacity: 0.1,
           });
-          this.entitiesToRemove.push(e.nodes[0]);
+          this.entitiesToRemove.push(nodeNumber);
         }
       });
 
@@ -361,11 +366,52 @@ export default {
       return ansUtil.beautifulNumber(number)
     },
 
-    restartAnalysis(){
-      console.log(this.analysedBlueprint);
-      console.log(this.analysedBlueprint.blueprint);
-    }
-  },
+    restartAnalysis() {
+      const newBlueprint = {
+        blueprint: {
+          entities: [],
+          icons: this.analysedBlueprint.blueprint.icons,
+          item: this.analysedBlueprint.blueprint.item,
+          label: this.analysedBlueprint.blueprint.label,
+          version: this.analysedBlueprint.blueprint.version,
+        }
+      }
+      // Add the entities that were not unselected
+      this.analysedBlueprint.blueprint.entities.forEach(entity => {
+        if (!this.entitiesToRemove.includes(entity.entity_number)) {
+          newBlueprint.blueprint.entities.push(entity)
+        }
+      })
+
+      // Start the analysis
+      const store = analysisStore();
+      store.isLoading = true
+      axios.post('analysis', { blueprint: JSON.stringify(newBlueprint), parameters: this.parameters })
+        .then((response) => {
+          // Analysis successfull !
+          this.analysedBlueprint = response.data
+
+          // Update the graph
+          this.createGraph()
+        }).catch((error) => {
+          // Analysis failed
+          console.log(error);
+          if (error.response && error.response.data && error.response.data.error)
+            store.sendMessage({
+              title: "error",
+              msg: error.response.data.error,
+            })
+          else
+            store.sendMessage({
+              title: "error",
+              msg: "Unknown error, please create an issue on the github repository"
+            })
+
+        }).finally(() => {
+          store.isLoading = false
+        })
+    },
+  }
 }
 </script>
 
