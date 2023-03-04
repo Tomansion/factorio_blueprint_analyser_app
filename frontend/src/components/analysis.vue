@@ -131,17 +131,27 @@
         <!-- Restart analysis tip -->
         <div
           id="interactionTip"
-          v-if="entitiesToRemove.length === 0"
+          v-if="!blueprintModified && entitiesToRemove.length === 0"
         >
           <b>Tip !</b> Remove entities from your blueprint by clicking on them
         </div>
+        <!-- Restart BTN-->
         <button
           id="restartAnalysis"
           class="arrowBtn"
           @click="restartAnalysis"
-          v-else
+          v-if="entitiesToRemove.length > 0"
         >
           Restart analysis
+        </button>
+        <!-- Reset BTN-->
+        <button
+          id="restartAnalysis"
+          class="mainBtn red"
+          @click="restoreBlueprint"
+          v-if="blueprintModified && entitiesToRemove.length === 0"
+        >
+          Restore original blueprint
         </button>
       </div>
     </div>
@@ -167,6 +177,7 @@ export default {
 
       // Blueprint modification
       entitiesToRemove: [],
+      blueprintModified: false,
     }
   },
   mounted() {
@@ -188,7 +199,6 @@ export default {
       const container = document.getElementById("mynetwork");
       // Remove old graph
       container.innerHTML = "";
-      this.entitiesToRemove = [];
 
       // Create a vis-network graph
       const { nodes, edges } = ansUtil.getAnalysedBlueprintNetwork(this.analysedBlueprint.blueprint);
@@ -392,6 +402,8 @@ export default {
           this.analysedBlueprint = response.data
 
           // Update the graph
+          this.blueprintModified = true
+          this.entitiesToRemove = []
           this.createGraph()
         }).catch((error) => {
           // Analysis failed
@@ -410,6 +422,13 @@ export default {
         }).finally(() => {
           store.isLoading = false
         })
+    },
+    restoreBlueprint() {
+      const store = analysisStore();
+      this.analysedBlueprint = store.analysedBlueprint
+      this.blueprintModified = false
+      this.entitiesToRemove = []
+      this.createGraph()
     },
   }
 }
