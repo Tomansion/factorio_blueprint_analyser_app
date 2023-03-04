@@ -6,6 +6,17 @@
         @click="$router.push('/')"
       >🡠 New analysis</button>
       <h1> Factorio Blueprint Analysis </h1>
+      <!-- Github link & version -->
+      <div id="version">
+        {{ version }}
+        <button
+          id="github"
+          class="mainBtn"
+          @click="openGithub"
+        >
+          <img src="https://img.icons8.com/windows/32/null/github.png" />
+        </button>
+      </div>
     </div>
 
     <!-- Blueprint data -->
@@ -84,7 +95,7 @@
           v-for="(para, i) in Object.keys(parameters)"
           :key="i"
         >
-          {{ para }}: <b>{{ parameters[para]}}</b>
+          {{ para }}: <b>{{ parameters[para] }}</b>
         </div>
       </div>
     </div>
@@ -113,17 +124,23 @@
         >Copy results</button>
         <button
           class="mainBtn"
-          @click="downloadObjectAsJson(analysedBlueprint, 'analysed_blueprint')"
+          @click="downloadResults()"
         >Download results</button>
       </div>
       <div id="menuEnd">
-        {{ version }}
-        <button
-          id="github"
-          class="mainBtn"
-          @click="openGithub"
+        <!-- Restart analysis tip -->
+        <div
+          id="interactionTip"
+          v-if="entitiesToRemove.length === 0"
         >
-          <img src="https://img.icons8.com/windows/32/null/github.png" />
+          <b>Tip !</b> Remove entities from your blueprint by clicking on them
+        </div>
+        <button
+          id="restartAnalysis"
+          class="arrowBtn"
+          v-else
+        >
+          Restart analysis
         </button>
       </div>
     </div>
@@ -145,6 +162,9 @@ export default {
       analysedBlueprint: null,
       parameters: null,
       version,
+
+      // Blueprint modification
+      entitiesToRemove: [],
     }
   },
   mounted() {
@@ -179,11 +199,8 @@ export default {
         interaction: {
           dragNodes: false,
           hover: true,
-          selectable: false,
           keyboard: { enabled: true },
-        },
-        manipulation: {
-          enabled: true,
+          selectable: true,
         },
         physics: false,
         nodes: {
@@ -191,14 +208,26 @@ export default {
           font: {
             size: 20,
             color: "#ffffff",
+            strokeWidth: 5,
+            strokeColor: "black",
           },
           color: {
             hover: { background: "grey" },
-          }
+            highlight: {
+              background: "transparent", border: "transparent"
+            },
+          },
         },
         edges: {
-          width: 0.15,
-          color: "grey",
+          color: "#cccc05",
+          arrows: {
+            to: {
+              scaleFactor: 0.8,
+            },
+          },
+          dashes: true,
+          arrowStrikethrough: false,
+          width: 0.5
         },
         groups: {
           entity: {
@@ -209,7 +238,7 @@ export default {
             shapeProperties: { useBorderWithImage: true },
           },
           tranpostedItem: {
-            opacity: 0.9,
+            opacity: 0.8,
             color: {
               border: "white",
               background: "black",
@@ -219,25 +248,28 @@ export default {
             shapeProperties: { useBorderWithImage: true },
           },
           recipe: {
-            opacity: 0.9,
-            color: {
-              background: "white",
-              opacity: 0.1,
+            action: {
+              hover: false,
+              selectable: false,
             },
-            imagePadding: 5,
+            opacity: 0.7,
+            color: {
+              background: "black",
+            },
             borderWidth: 0,
+            imagePadding: 8,
             shapeProperties: { useBorderWithImage: true },
+            selectable: false,
           },
           legend: {
             interaction: {
-              dragNodes: false,
               hover: false,
               selectable: false,
-              keyboard: { enabled: false },
             },
             font: {
               size: 15,
               color: "grey",
+              strokeWidth: 0,
             },
             size: 10,
             shape: "square",
@@ -254,11 +286,47 @@ export default {
         const label_info = ansUtil.getHoverLabel(e.node, this.analysedBlueprint.blueprint);
         if (label_info === null) return
         nodesDataset.update({ id: e.node, label: label_info });
+
+        // Set the cursor to pointer when hovering over an entity
+        if (e.node.includes("legend")) return
+        if (e.node.includes("recipe")) return
+        if (e.node.includes("transported")) return
+        network.canvas.body.container.style.cursor = 'pointer'
       });
+      // We want to remove the label on mouse out
       network.on("blurNode", (e) => {
         if (e.node.includes("legend")) return
         nodesDataset.update({ id: e.node, label: "" });
+
+        // Set the cursor to default
+        network.canvas.body.container.style.cursor = 'default'
       });
+      // We want to mark an entity as selected when clicked
+      network.on("click", (e) => {
+        if (e.nodes.length === 0) return
+        if (e.nodes[0].includes("legend")) return
+        if (e.nodes[0].includes("recipe")) return
+        if (e.nodes[0].includes("transported")) return
+        console.log(e.nodes[0]);
+        const node = nodesDataset.get(e.nodes[0]);
+        if (node.selected) {
+          nodesDataset.update({
+            id: e.nodes[0],
+            selected: false,
+            opacity: 1,
+          });
+          this.entitiesToRemove = this.entitiesToRemove.filter((entity) => entity !== e.nodes[0]);
+        } else {
+          nodesDataset.update({
+            id: e.nodes[0],
+            selected: true,
+            opacity: 0.1,
+          });
+          this.entitiesToRemove.push(e.nodes[0]);
+        }
+      });
+
+
     },
     itemNameToIcon(itemName) {
       return "https://wiki.factorio.com/images/" + ansUtil.nameToImageName(itemName)
@@ -269,11 +337,11 @@ export default {
     newIssue() {
       window.open("https://github.com/Tomansion/factorio_blueprint_analyser_app/issues/new", '_blank').focus();
     },
-    downloadObjectAsJson(exportObj, exportName) {
-      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+    downloadResults() {
+      var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.analysedBlueprint, null, 2));
       var downloadAnchorNode = document.createElement('a');
       downloadAnchorNode.setAttribute("href", dataStr);
-      downloadAnchorNode.setAttribute("download", exportName + ".json");
+      downloadAnchorNode.setAttribute("download", "analysed_blueprint.json");
       document.body.appendChild(downloadAnchorNode); // required for firefox
       downloadAnchorNode.click();
       downloadAnchorNode.remove();
@@ -397,9 +465,27 @@ export default {
   margin: 0;
 }
 
+#interactionTip {
+  border: 1px solid rgba(211, 211, 211, 0.601);
+  padding: 5px 10px 5px 10px;
+  border-radius: 15px;
+}
+
+#restartAnalysis {
+  min-height: 30px;
+  width: 300px;
+}
+
+#version {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 #github {
   padding: 4px;
-  margin-left: 20px;
+  margin-left: 10px;
   border-radius: 5px;
 }
 

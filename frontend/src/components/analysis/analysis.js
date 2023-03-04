@@ -64,7 +64,7 @@ function getAnalysedBlueprintNetwork(blueprint) {
       y: entity.position.y * positionRatioIncrement,
       image: imageBaseUrl + nameToImageName(entity.name),
       size: entity.name.includes("assembling-machine") ? 60 : 20,
-      opacity: entity.transpoted_items ? 1 : 0.3,
+      opacity: 1,
       color: {
         background: "transparent",
         border: "transparent",
@@ -74,16 +74,22 @@ function getAnalysedBlueprintNetwork(blueprint) {
       },
     }
 
-    // Deal with input and output
+    // We set low opacity for entities that are not used
+    if (!entity.transpoted_items)
+      newNode.opacity = 0.3;
+
+    // Deal with input and output colors
     if (entity.input)
       newNode.color.border = "blue";
     if (entity.output)
       newNode.color.border = "green";
     if (entity.usage_rate && entity.usage_rate >= 0.5) {
+      // Medium usage
       newNode.color.border = "yellow";
       newNode.font.color = "yellow";
     }
     if (entity.usage_rate && entity.usage_rate >= 1) {
+      // High usage
       newNode.color.border = "red";
       newNode.font.color = "red";
     }
