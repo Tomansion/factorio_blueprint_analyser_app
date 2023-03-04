@@ -138,6 +138,7 @@
         <button
           id="restartAnalysis"
           class="arrowBtn"
+          @click="restartAnalysis"
           v-else
         >
           Restart analysis
@@ -359,6 +360,11 @@ export default {
     beautifulNumber(number) {
       return ansUtil.beautifulNumber(number)
     },
+
+    restartAnalysis(){
+      console.log(this.analysedBlueprint);
+      console.log(this.analysedBlueprint.blueprint);
+    }
   },
 }
 </script>
@@ -372,7 +378,7 @@ export default {
 #analysis {
   display: grid;
   grid-template-columns: 260px 1fr;
-  grid-template-rows: 70px 3.9fr 1fr auto;
+  grid-template-rows: auto 3.9fr 1fr auto;
   grid-auto-flow: row;
   grid-template-areas:
     "header header"
@@ -380,7 +386,7 @@ export default {
     "config graph"
     "config buttons";
   width: 100%;
-  height: 99%;
+  height: 100%;
 }
 
 
@@ -461,19 +467,19 @@ export default {
 }
 
 .buttons button {
-  min-height: 40px;
+  min-height: 30px;
   margin: 0;
 }
 
 #interactionTip {
   border: 1px solid rgba(211, 211, 211, 0.601);
-  padding: 5px 10px 5px 10px;
+  padding: 2px 10px 2px 10px;
   border-radius: 15px;
 }
 
 #restartAnalysis {
   min-height: 30px;
-  width: 300px;
+  width: 350px;
 }
 
 #version {
@@ -490,11 +496,11 @@ export default {
 }
 
 /* Grid for small screens */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1000px) {
   #analysis {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 70px auto 3.9fr 1fr auto;
+    grid-template-rows: auto auto 3.9fr 1fr auto;
     grid-auto-flow: row;
     grid-template-areas:
       "header"

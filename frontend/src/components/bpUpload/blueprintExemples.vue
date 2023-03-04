@@ -171,5 +171,6 @@ export default {
 #analyseBtn {
   flex: 1;
   margin: 0;
+  min-width: 0;
 }
 </style>
