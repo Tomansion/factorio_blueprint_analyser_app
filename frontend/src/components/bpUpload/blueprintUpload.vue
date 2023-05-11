@@ -30,6 +30,10 @@ export default {
     startAnalysis(blueprint) {
       const store = analysisStore();
       store.isLoading = true
+
+      // Parse the inserterCapacityBonus parameter to int
+      this.parameters.inserterCapacityBonus = parseInt(this.parameters.inserterCapacityBonus)
+
       axios.post('analysis', { blueprint: blueprint, parameters: this.parameters })
         .then((response) => {
           // Analysis successfull !
