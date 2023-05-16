@@ -6,4 +6,4 @@ connexion[swagger-ui] == 2.6.0
 requests == 2.25.1
 openapi_spec_validator == 0.2.8
 
-factorioBlueprintAnalyser == 1.3.3
+factorioBlueprintAnalyser == 1.3.4
