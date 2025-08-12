@@ -1,9 +1,5 @@
-Flask == 2.0.3
-flask_cors == 3.0.8
-connexion == 2.6.0
-swagger-ui-bundle == 0.0.9
-connexion[swagger-ui] == 2.6.0
+fastapi == 0.104.1
+uvicorn[standard] == 0.24.0
+python-multipart == 0.0.6
 requests == 2.25.1
-openapi_spec_validator == 0.2.8
-
-factorioBlueprintAnalyser == 1.3.4
+factorioBlueprintAnalyser == 1.3.6

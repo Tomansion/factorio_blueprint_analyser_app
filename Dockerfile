@@ -11,6 +11,6 @@ WORKDIR /backend
 COPY backend/ .
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 COPY --from=build-stage /frontend/dist dist
-ENV FLASK_ENV production
+ENV FASTAPI_ENV production
 CMD ["python", "websrv.py"]
 

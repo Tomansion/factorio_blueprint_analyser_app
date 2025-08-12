@@ -7,7 +7,7 @@ Live demo: https://factorio-blueprint-analysis.tomansion.fr/ !
 
 ## Project setup
 
-Frontend is a Vue.js project. Backend is a Python project.
+Frontend is a Vue.js project. Backend is a FastAPI server.
 
 ### Frontend
 ```
