@@ -9,15 +9,14 @@ import json
 def ping():
     # Send app version
     # Read version from ../frontend/package.json
-    with open('../frontend/package.json') as f:
-        version = json.load(f)['version']
+    with open("../frontend/package.json") as f:
+        version = json.load(f)["version"]
     return version, 200
 
 
 def start(data):
-
     print(data)
-    
+
     print("Init analysis...")
     data["parameters"]["displayNetwork"] = False
     data["parameters"]["verbose_level"] = 1
